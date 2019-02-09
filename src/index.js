@@ -1,11 +1,11 @@
 import { h, render, Component } from 'preact';
- 
+import * as Utils from './utils';
 class App extends Component {
     constructor () {
         super();
         this.state = {
-            lat: null,
-            lon: null
+            lat: 0,
+            lon: 0
         }
     }
 
@@ -26,7 +26,7 @@ class App extends Component {
     }
 
     render(props, state) {        
-        return <span>{ JSON.stringify(state.lat) }</span>;
+        return <span>{ parseInt(Utils.distance(state.lat, state.lon, 40.78788, -74.014313)) } meters from new york</span>;
     }
 }
  
