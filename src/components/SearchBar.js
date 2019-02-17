@@ -6,15 +6,14 @@ import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import CloudIcon from '@material-ui/icons/Cloud';
+import LocationCityIcon from '@material-ui/icons/LocationCity';
 import SearchIcon from '@material-ui/icons/Search';
 
 const styles = {
   root: {
-    padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
-    width: 400,
+    width: '100%',
   },
   input: {
     marginLeft: 8,
@@ -36,7 +35,7 @@ function CustomizedInputBase(props) {
   return (
     <Paper className={classes.root} elevation={1}>
       <IconButton className={classes.iconButton} aria-label="Menu">
-        <CloudIcon />
+        <LocationCityIcon />
       </IconButton>
       <InputBase className={classes.input} placeholder="Search Cities" />
       <IconButton className={classes.iconButton} aria-label="Search">
