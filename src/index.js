@@ -2,10 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import SearchBar from './components/SearchBar';
+import Header from './components/Header';
+import Menu from './components/Menu';
 
 import * as Utils from './utils';
 
 import './style.css';
+
+const styles = {
+  root: {
+    fontFamily: 'Roboto'
+  }
+}
 class App extends React.Component {
   constructor() {
     super();
@@ -51,8 +59,10 @@ class App extends React.Component {
   render() {
     // return <span className="wrapper">{ parseInt(Utils.distance(state.myLocation.lat, state.myLocation.lon, 40.78788, -74.014313)) } meters from new york</span>;
     return (
-      <div>
+      <div style={styles.root}>
+        <Header />
         <SearchBar />
+        <Menu/>
         <span>{JSON.stringify(this.state.reports)}</span>
       </div>
     );
