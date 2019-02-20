@@ -18,7 +18,8 @@ const styles = {
     borderRadius: 0,
     borderTopLeftRadius: '3px',
     borderTopRightRadius: '3px',
-    border: '1px solid #6abfea'
+    border: '1px solid #6abfea',
+    margin: '15px 0'
   },
   input: {
     marginLeft: 8,
