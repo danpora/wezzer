@@ -14,6 +14,11 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     width: '100%',
+    color: '#6abfea',
+    borderRadius: 0,
+    borderTopLeftRadius: '3px',
+    borderTopRightRadius: '3px',
+    border: '1px solid #6abfea'
   },
   input: {
     marginLeft: 8,
