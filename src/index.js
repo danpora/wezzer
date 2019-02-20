@@ -5,15 +5,14 @@ import PropTypes from 'prop-types';
 import SearchBar from './components/SearchBar';
 import Header from './components/Header';
 import Forecast from './components/Forecast';
-import Menu from './components/Menu';
 
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import NoSsr from '@material-ui/core/NoSsr';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import RestoreIcon from '@material-ui/icons/Restore';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { library } from '@fortawesome/fontawesome-svg-core';
 
 import {
@@ -38,8 +37,12 @@ import './style.css';
 
 const styles = {
   root: {
-    fontFamily: "'Rajdhani', 'sans-serif'"
-  }
+    height: '100%',
+    fontFamily: "'Rajdhani', 'sans-serif'",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
 };
 
 function LinkTab(props) {
@@ -48,12 +51,6 @@ function LinkTab(props) {
   );
 }
 
-const tabStyles = (theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-  },
-});
 class App extends React.Component {
   constructor() {
     super();
@@ -118,34 +115,27 @@ class App extends React.Component {
 
     return (
       <div style={styles.root}>
+      <section>
         <Header />
         <SearchBar />
-        <div className={classes.root}>
-          <AppBar position="static">
-            <Tabs
-              variant="fullWidth"
-              value={value}
-              onChange={this.handleChange}
-              style={{ backgroundColor: '#6abfea' }}
-            >
-              <LinkTab label="Forecast" />
-              <LinkTab label="Social" />
-              <LinkTab label="Map" />
-            </Tabs>
-          </AppBar>
-          {value === 0 && (
-              <Forecast data={this.state.defaultWeather} />
-          )}
-          {value === 2 && (
-              <span>{JSON.stringify(this.state.reports)}</span>
-          )}
-          {value === 1 && <div>Page Two</div>}
-        </div>
+        {value === 0 && <Forecast data={this.state.defaultWeather} />}
+        {value === 2 && <span>{JSON.stringify(this.state.reports)}</span>}
+        {value === 1 && <div>Page Two</div>}
+      </section>
+      <section>
+        <BottomNavigation
+          value={value}
+          onChange={this.handleChange}
+          showLabels
+        >
+          <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+          <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+          <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+        </BottomNavigation>
+      </section>
       </div>
     );
   }
 }
 
-const AppWrapper = withStyles(tabStyles)(App);
-
-ReactDOM.render(<AppWrapper />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));
