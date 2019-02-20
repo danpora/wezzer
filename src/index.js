@@ -10,9 +10,9 @@ import Tab from '@material-ui/core/Tab';
 
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import RestoreIcon from '@material-ui/icons/Restore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+import CloudIcon from '@material-ui/icons/Cloud';
+import UsersIcon from '@material-ui/icons/SupervisedUserCircle';
+import MapIcon from '@material-ui/icons/Map';
 import { library } from '@fortawesome/fontawesome-svg-core';
 
 import {
@@ -44,12 +44,6 @@ const styles = {
     justifyContent: 'space-between',
   },
 };
-
-function LinkTab(props) {
-  return (
-    <Tab component="a" onClick={(event) => event.preventDefault()} {...props} />
-  );
-}
 
 class App extends React.Component {
   constructor() {
@@ -109,7 +103,6 @@ class App extends React.Component {
   }
 
   render() {
-    // return <span className="wrapper">{ parseInt(Utils.distance(state.myLocation.lat, state.myLocation.lon, 40.78788, -74.014313)) } meters from new york</span>;
     const { classes } = this.props;
     const { value } = this.state;
 
@@ -128,9 +121,9 @@ class App extends React.Component {
           onChange={this.handleChange}
           showLabels
         >
-          <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-          <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-          <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+          <BottomNavigationAction label="Forecast" icon={<CloudIcon />} />
+          <BottomNavigationAction label="Reports" icon={<UsersIcon />} />
+          <BottomNavigationAction label="Map" icon={<MapIcon />} />
         </BottomNavigation>
       </section>
       </div>
