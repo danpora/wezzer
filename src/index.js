@@ -7,7 +7,8 @@ import Header from './components/Header';
 import Forecast from './components/Forecast';
 import Reports from './components/Reports';
 
-import Tab from '@material-ui/core/Tab';
+import Fab from '@material-ui/core/Fab';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -161,15 +162,30 @@ class App extends React.Component {
           )}
           {tabValue === 2 && <div>Page under construction!</div>}
         </section>
-        <section>
+        <section style={{ display: 'flex', flexDirection: 'column' }}>
+          <Fab
+            style={{
+              backgroundColor: '#6abfea',
+              color: 'white',
+              float: 'right',
+              width: '122px',
+              alignSelf: 'flex-end',
+              margin: '0 10px 10px 0'
+            }}
+            variant="extended"
+            aria-label="Add"
+          >
+            <CloudUploadIcon style={{ marginRight: '5px' }} />
+            Report
+          </Fab>
           <BottomNavigation
             value={tabValue}
             onChange={this.handleChange}
             showLabels
           >
-            <BottomNavigationAction label="Forecast" icon={<CloudIcon />} />
-            <BottomNavigationAction label="Reports" icon={<UsersIcon />} />
-            <BottomNavigationAction label="Map" icon={<MapIcon />} disabled />
+            <BottomNavigationAction style={{ color: 'grey'}} label="Forecast" icon={<CloudIcon />} />
+            <BottomNavigationAction style={{ color: 'grey'}} label="Reports" icon={<UsersIcon />} />
+            <BottomNavigationAction style={{ color: 'grey'}} label="Map" icon={<MapIcon />} disabled />
           </BottomNavigation>
         </section>
       </div>
