@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import SearchBar from './components/SearchBar';
 import Header from './components/Header';
 import Forecast from './components/Forecast';
+import Reports from './components/Reports';
 
 import Tab from '@material-ui/core/Tab';
 
@@ -50,9 +51,17 @@ class App extends React.Component {
     super();
 
     this.state = {
-      value: 0,
-      defaultWeather: {},
-      reports: {},
+      tabValue: 0,
+      defaultWeather: {
+        data: [],
+        statusMsg: '',
+        statusType: 'REQUEST',
+      },
+      reports: {
+        data: [],
+        statusMsg: '',
+        statusType: 'REQUEST',
+      },
       myLocation: {
         lat: 0,
         lon: 0,
@@ -63,7 +72,7 @@ class App extends React.Component {
   }
 
   handleChange(event, value) {
-    this.setState({ value });
+    this.setState({ tabValue: value });
   }
 
   componentDidMount() {
@@ -77,22 +86,44 @@ class App extends React.Component {
             lat: latitude,
             lon: longitude,
           },
+          defaultWeather: {
+            ...this.state.defaultWeather,
+            statusMsg: 'Fetching forecast..',
+            statusType: 'REQUEST',
+          },
+          reports: {
+            ...this.state.reports,
+            statusMsg: 'Fetching user reports..',
+            statusType: 'REQUEST',
+          },
         });
 
         fetch(
           `https://0brc1jr0z3.execute-api.eu-west-1.amazonaws.com/v1/weather?lon=${longitude}&lat=${latitude}`,
         )
           .then((r) => r.json())
-          .then((r) => {
-            this.setState({ reports: r });
+          .then((data) => {
+            this.setState({
+              reports: {
+                statusMsg: 'Successfully loaded forecast',
+                statusType: 'SUCCESS',
+                data,
+              },
+            });
           });
 
         fetch(
           `https://0brc1jr0z3.execute-api.eu-west-1.amazonaws.com/v1/weather/default?lon=${longitude}&lat=${latitude}`,
         )
           .then((r) => r.json())
-          .then((r) => {
-            this.setState({ defaultWeather: r });
+          .then((data) => {
+            this.setState({
+              defaultWeather: {
+                statusMsg: 'Successfully loaded user reports',
+                statusType: 'SUCCESS',
+                data,
+              },
+            });
           });
       },
       // user denied position
@@ -104,31 +135,53 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { value } = this.state;
+    const { tabValue } = this.state;
+
+    const isLoadingDefaultWeather =
+      this.state.defaultWeather.statusType === 'REQUEST';
+
+    const isLoadingReports = this.state.reports.statusType === 'REQUEST';
 
     return (
       <div style={styles.root}>
-      <section>
-        <Header />
-        <SearchBar />
-        {value === 0 && <Forecast data={this.state.defaultWeather} />}
-        {value === 2 && <span>{JSON.stringify(this.state.reports)}</span>}
-        {value === 1 && <div>Page Two</div>}
-      </section>
-      <section>
-        <BottomNavigation
-          value={value}
-          onChange={this.handleChange}
-          showLabels
-        >
-          <BottomNavigationAction label="Forecast" icon={<CloudIcon />} />
-          <BottomNavigationAction label="Reports" icon={<UsersIcon />} />
-          <BottomNavigationAction label="Map" icon={<MapIcon />} />
-        </BottomNavigation>
-      </section>
+        <section>
+          <Header />
+          <SearchBar />
+          {tabValue === 0 && (
+            <ForecastWithLoader
+              isLoading={isLoadingDefaultWeather}
+              data={this.state.defaultWeather.data}
+            />
+          )}
+          {tabValue === 1 && (
+            <ReportsWithLoader
+              isLoading={isLoadingReports}
+              data={this.state.reports.data}
+            />
+          )}
+          {tabValue === 2 && <div>Page under construction!</div>}
+        </section>
+        <section>
+          <BottomNavigation
+            value={tabValue}
+            onChange={this.handleChange}
+            showLabels
+          >
+            <BottomNavigationAction label="Forecast" icon={<CloudIcon />} />
+            <BottomNavigationAction label="Reports" icon={<UsersIcon />} />
+            <BottomNavigationAction label="Map" icon={<MapIcon />} disabled />
+          </BottomNavigation>
+        </section>
       </div>
     );
   }
 }
+
+const withLoader = (Component) => (props) => {
+  return props.isLoading ? 'Loading..' : <Component {...props} />;
+};
+
+const ForecastWithLoader = withLoader(Forecast);
+const ReportsWithLoader = withLoader(Reports);
 
 ReactDOM.render(<App />, document.getElementById('app'));
