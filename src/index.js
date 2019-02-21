@@ -6,6 +6,7 @@ import SearchBar from './components/SearchBar';
 import Header from './components/Header';
 import Forecast from './components/Forecast';
 import Reports from './components/Reports';
+import ReportDialog from './components/ReportDialog';
 
 import Fab from '@material-ui/core/Fab';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
@@ -70,6 +71,7 @@ class App extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.getReports = this.getReports.bind(this);
   }
 
   handleChange(event, value) {
@@ -134,6 +136,32 @@ class App extends React.Component {
     );
   }
 
+  getReports() {
+    this.setState({
+      reports: {
+        statusMsg: 'Fetching user reports..',
+        statusType: 'REQUEST',
+        data: [],
+      },
+    });
+
+    fetch(
+      `https://0brc1jr0z3.execute-api.eu-west-1.amazonaws.com/v1/weather?lon=${
+        this.state.myLocation.lon
+      }&lat=${this.state.myLocation.lat}`,
+    )
+      .then((r) => r.json())
+      .then((data) => {
+        this.setState({
+          reports: {
+            statusMsg: 'Successfully loaded forecast',
+            statusType: 'SUCCESS',
+            data,
+          },
+        });
+      });
+  }
+
   render() {
     const { classes } = this.props;
     const { tabValue } = this.state;
@@ -163,29 +191,35 @@ class App extends React.Component {
           {tabValue === 2 && <div>Page under construction!</div>}
         </section>
         <section style={{ display: 'flex', flexDirection: 'column' }}>
-          <Fab
+          <ReportDialog
             style={{
-              backgroundColor: '#6abfea',
-              color: 'white',
-              float: 'right',
-              width: '122px',
-              alignSelf: 'flex-end',
-              margin: '0 10px 10px 0'
+              display: 'flex',
+              justifyContent: 'center',
+              marginBottom: '10px'
             }}
-            variant="extended"
-            aria-label="Add"
-          >
-            <CloudUploadIcon style={{ marginRight: '5px' }} />
-            Report
-          </Fab>
+          />
           <BottomNavigation
             value={tabValue}
             onChange={this.handleChange}
             showLabels
           >
-            <BottomNavigationAction style={{ color: 'grey'}} label="Forecast" icon={<CloudIcon />} />
-            <BottomNavigationAction style={{ color: 'grey'}} label="Reports" icon={<UsersIcon />} />
-            <BottomNavigationAction style={{ color: 'grey'}} label="Map" icon={<MapIcon />} disabled />
+            <BottomNavigationAction
+              style={{ color: 'grey' }}
+              label="Forecast"
+              icon={<CloudIcon />}
+            />
+            <BottomNavigationAction
+              style={{ color: 'grey' }}
+              label="Reports"
+              icon={<UsersIcon />}
+              onClick={this.getReports}
+            />
+            <BottomNavigationAction
+              style={{ color: 'grey' }}
+              label="Map"
+              icon={<MapIcon />}
+              disabled
+            />
           </BottomNavigation>
         </section>
       </div>
