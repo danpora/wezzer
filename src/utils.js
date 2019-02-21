@@ -17,3 +17,17 @@ export function distance(lat1, lon1, lat2, lon2) {
 function toRadians(deg) {
   return deg * ( Math.PI / 180 );
 }
+
+export function getDominantWeatherCodeFromReports (reports) {
+  const weatherCodeCounter = reports.reduce((acc, rep) => {
+    const code = rep.weather.code;
+    const currentCodeCount = acc[code];
+
+    return {
+      ...acc,
+      [code]: currentCodeCount ? currentCodeCount + 1 : 1
+    }
+  }, {});
+
+  return weatherCodeCounter;
+}
