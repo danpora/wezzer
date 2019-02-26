@@ -25,6 +25,7 @@ import {
   faCloudShowersHeavy,
   faCloudSun,
   faMeteor,
+  faCloudSunRain
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faCloud);
@@ -33,6 +34,7 @@ library.add(faCloudRain);
 library.add(faCloudShowersHeavy);
 library.add(faCloudSun);
 library.add(faMeteor);
+library.add(faCloudSunRain);
 
 import * as Utils from './utils';
 
