@@ -64,6 +64,22 @@ export default class FormDialog extends React.Component {
                 size={'2x'}
                 color="grey"
               />
+              <FontAwesomeIcon
+                icon={'cloud-meatball'}
+                size={'2x'}
+                color={'grey'}
+              />
+              <FontAwesomeIcon
+                icon={'cloud-moon-rain'}
+                size={'2x'}
+                color={'grey'}
+              />
+              <FontAwesomeIcon icon={'cloud-moon'} size={'2x'} color={'grey'} />
+              <FontAwesomeIcon icon={'moon'} size={'2x'} color={'grey'} />
+              <FontAwesomeIcon icon={'rainbow'} size={'2x'} color={'grey'} />
+              <FontAwesomeIcon icon={'smog'} size={'2x'} color={'grey'} />
+              <FontAwesomeIcon icon={'wind'} size={'2x'} color={'grey'} />
+              <FontAwesomeIcon icon={'bolt'} size={'2x'} color={'grey'} />
             </div>
           </DialogContent>
           <DialogActions>

@@ -25,7 +25,15 @@ import {
   faCloudShowersHeavy,
   faCloudSun,
   faMeteor,
-  faCloudSunRain
+  faCloudSunRain,
+  faCloudMeatball,
+  faCloudMoonRain,
+  faCloudMoon,
+  faMoon,
+  faRainbow,
+  faSmog,
+  faWind,
+  faBolt
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faCloud);
@@ -35,6 +43,15 @@ library.add(faCloudShowersHeavy);
 library.add(faCloudSun);
 library.add(faMeteor);
 library.add(faCloudSunRain);
+library.add(faCloudMeatball);
+library.add(faCloudMoonRain);
+library.add(faCloudMoon);
+library.add(faMoon);
+library.add(faRainbow);
+library.add(faSmog);
+library.add(faWind);
+library.add(faBolt);
+
 
 import * as Utils from './utils';
 
