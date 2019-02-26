@@ -5,31 +5,35 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export default class FormDialog extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      open: false
-    }
+      open: false,
+    };
 
     this.handleClickOpen = this.handleClickOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
 
-  handleClickOpen () {
+  handleClickOpen() {
     this.setState({ open: true });
-  };
+  }
 
-  handleClose () {
+  handleClose() {
     this.setState({ open: false });
-  };
+  }
 
   render() {
     return (
       <div style={this.props.style}>
-        <Button variant="outlined" style={{ color: '#3782a9' }} onClick={this.handleClickOpen}>
+        <Button
+          variant="outlined"
+          style={{ color: '#3782a9' }}
+          onClick={this.handleClickOpen}
+        >
           Report weather
         </Button>
         <Dialog
@@ -39,15 +43,32 @@ export default class FormDialog extends React.Component {
         >
           <DialogTitle id="form-dialog-title">Whats the weather?</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-            </DialogContentText>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr 1fr',
+                gridGap: '20px',
+              }}
+            >
+              <FontAwesomeIcon icon={'cloud'} size={'2x'} color="grey" />
+              <FontAwesomeIcon icon={'sun'} size={'2x'} color="grey" />
+              <FontAwesomeIcon icon={'cloud-rain'} size={'2x'} color="grey" />
+              <FontAwesomeIcon
+                icon={'cloud-showers-heavy'}
+                size={'2x'}
+                color="grey"
+              />
+              <FontAwesomeIcon icon={'cloud-sun'} size={'2x'} color="grey" />
+              <FontAwesomeIcon
+                icon={'cloud-sun-rain'}
+                size={'2x'}
+                color="grey"
+              />
+            </div>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.handleClose} color="primary">
-              Report
+              Nevermind
             </Button>
           </DialogActions>
         </Dialog>
