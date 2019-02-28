@@ -87,10 +87,12 @@ class App extends React.Component {
         lat: 0,
         lon: 0,
       },
+      reportButtonLabel: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.getReports = this.getReports.bind(this);
+    this.reportWeather = this.reportWeather.bind(this);
   }
 
   handleChange(event, value) {
@@ -181,6 +183,39 @@ class App extends React.Component {
       });
   }
 
+  reportWeather (weatherCode) {
+    this.setState({ reportButtonLabel: 'Reporting weather..'});
+
+    fetch(
+      `https://0brc1jr0z3.execute-api.eu-west-1.amazonaws.com/v1/weather`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          lon: this.state.myLocation.lon,
+          lat: this.state.myLocation.lat,
+          data: {
+            code: weatherCode
+          }
+        })
+      }
+    )
+      .then((r) => r.json())
+      .then((data) => {
+          setTimeout(() => {
+
+            this.setState({ reportButtonLabel: 'Weather reported!' });
+            
+            setTimeout(() => {
+              this.setState({ reportButtonLabel: '' });
+            }, 4000);
+
+          }, 3000);
+      });
+  }
+
   render() {
     const { classes } = this.props;
     const { tabValue } = this.state;
@@ -216,6 +251,8 @@ class App extends React.Component {
               justifyContent: 'center',
               marginBottom: '10px'
             }}
+            reportWeather={this.reportWeather}
+            buttonLabel={this.state.reportButtonLabel}
           />
           <BottomNavigation
             value={tabValue}
