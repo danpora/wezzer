@@ -19,8 +19,8 @@ function toRadians(deg) {
 }
 
 export function getDominantWeatherCodeFromReports(reports) {
-  const weatherCodeCounterMap = reports.reduce((acc, rep) => {
-    const code = rep.weather.code;
+  const weatherCodeCounterMap = reports.reduce((acc, report) => {
+    const code = report.weather.code;
     const currentCodeCount = acc[code];
 
     return {
