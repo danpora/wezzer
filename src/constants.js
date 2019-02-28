@@ -3,7 +3,6 @@ export const weatherConditions = [
     displayName: 'Clear Sky',
     code: 800,
     icon: { day: 'sun', night: 'moon' },
-    mode: 'day'
   },
   {
     displayName: 'Few Clouds',
