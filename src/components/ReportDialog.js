@@ -6,6 +6,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { weatherConditions } from '../constants';
+
 export default class FormDialog extends React.Component {
   constructor(props) {
     super(props);
@@ -16,6 +19,12 @@ export default class FormDialog extends React.Component {
 
     this.handleClickOpen = this.handleClickOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleWeatherIconClick = this.handleWeatherIconClick.bind(this);
+  }
+
+  handleWeatherIconClick (weatherCode) {
+    this.setState({ open: false });
+    this.props.reportWeather(weatherCode);
   }
 
   handleClickOpen() {
@@ -32,9 +41,10 @@ export default class FormDialog extends React.Component {
         <Button
           variant="outlined"
           style={{ color: '#3782a9' }}
+          disabled={this.props.buttonLabel !== ''}
           onClick={this.handleClickOpen}
         >
-          Report weather
+          { this.props.buttonLabel || 'Report weather' }
         </Button>
         <Dialog
           open={this.state.open}
@@ -50,36 +60,15 @@ export default class FormDialog extends React.Component {
                 gridGap: '20px',
               }}
             >
-              <FontAwesomeIcon icon={'cloud'} size={'2x'} color="grey" />
-              <FontAwesomeIcon icon={'sun'} size={'2x'} color="grey" />
-              <FontAwesomeIcon icon={'cloud-rain'} size={'2x'} color="grey" />
-              <FontAwesomeIcon
-                icon={'cloud-showers-heavy'}
-                size={'2x'}
-                color="grey"
-              />
-              <FontAwesomeIcon icon={'cloud-sun'} size={'2x'} color="grey" />
-              <FontAwesomeIcon
-                icon={'cloud-sun-rain'}
-                size={'2x'}
-                color="grey"
-              />
-              <FontAwesomeIcon
-                icon={'cloud-meatball'}
-                size={'2x'}
-                color={'grey'}
-              />
-              <FontAwesomeIcon
-                icon={'cloud-moon-rain'}
-                size={'2x'}
-                color={'grey'}
-              />
-              <FontAwesomeIcon icon={'cloud-moon'} size={'2x'} color={'grey'} />
-              <FontAwesomeIcon icon={'moon'} size={'2x'} color={'grey'} />
-              <FontAwesomeIcon icon={'rainbow'} size={'2x'} color={'grey'} />
-              <FontAwesomeIcon icon={'smog'} size={'2x'} color={'grey'} />
-              <FontAwesomeIcon icon={'wind'} size={'2x'} color={'grey'} />
-              <FontAwesomeIcon icon={'bolt'} size={'2x'} color={'grey'} />
+              {weatherConditions.map(w => 
+                  <FontAwesomeIcon 
+                    key={w.code} 
+                    icon={w.icon.day} 
+                    size={'2x'} 
+                    color={'grey'} 
+                    onClick={this.handleWeatherIconClick.bind(null, w.code)}
+                  />
+                )}
             </div>
           </DialogContent>
           <DialogActions>
@@ -92,3 +81,4 @@ export default class FormDialog extends React.Component {
     );
   }
 }
+
