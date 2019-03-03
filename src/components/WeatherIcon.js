@@ -2,14 +2,24 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { weatherConditions } from '../constants';
 
-const weatherCodeToIcon = weatherConditions.reduce((acc, w) => ({
+const weatherCodeToIcon = (dayOrNight) => weatherConditions.reduce((acc, w) => ({
   ...acc,
-  [w.code]: w.icon.day
+  [w.code]: w.icon[dayOrNight]
 }), {})
 
-export default function WeatherIcon({ code }) {
+const getDayOrNight = (date) => {
+  const now = new Date();
+  const hour = now.getHours();
 
-  const iconName = weatherCodeToIcon[code] || weatherCodeToIcon.default;
+  return (hour >= 18 && hour <= 5) ? 'day' : 'night';
+}
+
+export default function WeatherIcon({ code }) {
+  const dayOrNight = getDayOrNight();
+    
+  const iconName = 
+    weatherCodeToIcon(dayOrNight)[code] || 
+    weatherCodeToIcon(dayOrNight).default;
 
   return <FontAwesomeIcon icon={iconName} size={'5x'} color="grey" />;
 
