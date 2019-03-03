@@ -19,7 +19,10 @@ const styles = {
     borderTopLeftRadius: '3px',
     borderTopRightRadius: '3px',
     border: '1px solid #6abfea',
-    margin: '15px 0'
+    margin: '15px auto',
+    '@media (min-width: 768px)': {
+      maxWidth: '400px'
+    }
   },
   input: {
     marginLeft: 8,
