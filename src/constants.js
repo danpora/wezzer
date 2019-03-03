@@ -43,5 +43,10 @@ export const weatherConditions = [
     displayName: 'Thunderstorm',
     code: 211,
     icon: { day: 'bolt', night: 'bolt' },
+  },
+  {
+    displayName: 'Meteor',
+    code: 'default',
+    icon: { day: 'meteor', night: 'meteor' },
   }
 ];
