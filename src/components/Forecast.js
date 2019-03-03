@@ -2,10 +2,11 @@ import React from 'react';
 import WeatherIcon from './WeatherIcon';
 
 export default function Forecast(props) {
-  const { weather = [{}], name, sys = {}, main = {} } = props.data;
-
+  const { className , data } = props;
+  const { weather = [{}], name, sys = {}, main = {} } = data;
+  
   return (
-    <div style={{ padding: '15px 0' }}>
+    <div className={className}>
       <div style={{ textAlign: 'center' }}>
         <WeatherIcon code={weather[0].id} />
       </div>

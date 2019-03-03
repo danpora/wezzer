@@ -8,9 +8,6 @@ import Forecast from './components/Forecast';
 import Reports from './components/Reports';
 import ReportDialog from './components/ReportDialog';
 
-import Fab from '@material-ui/core/Fab';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import CloudIcon from '@material-ui/icons/Cloud';
@@ -56,6 +53,7 @@ library.add(faBolt);
 import * as Utils from './utils';
 
 import './style.css';
+import { withStyles } from '@material-ui/core';
 
 const styles = {
   root: {
@@ -64,7 +62,18 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    '@media (min-width: 768px)': {
+      width: '60%',
+      margin: 'auto',
+      padding: '100px 0'
+    }
   },
+  content: {
+    padding: '15px 0',
+    '@media (min-width: 768px)': {
+      padding: '100px 0'
+    }
+  }
 };
 
 class App extends React.Component {
@@ -224,20 +233,23 @@ class App extends React.Component {
       this.state.defaultWeather.statusType === 'REQUEST';
 
     const isLoadingReports = this.state.reports.statusType === 'REQUEST';
-
+    console.log('classes.content::', classes.content)
+    
     return (
-      <div style={styles.root}>
+      <div className={classes.root}>
         <section>
           <Header />
           <SearchBar />
           {tabValue === 0 && (
             <ForecastWithLoader
+              className={classes.content}
               isLoading={isLoadingDefaultWeather}
               data={this.state.defaultWeather.data}
             />
           )}
           {tabValue === 1 && (
             <ReportsWithLoader
+              className={classes.content}
               isLoading={isLoadingReports}
               data={this.state.reports.data}
             />
@@ -283,11 +295,13 @@ class App extends React.Component {
   }
 }
 
-const withLoader = (Component) => (props) => {
+const withLoader = (Component) => (props) => {  
   return props.isLoading ? 'Loading..' : <Component {...props} />;
 };
 
 const ForecastWithLoader = withLoader(Forecast);
 const ReportsWithLoader = withLoader(Reports);
 
-ReactDOM.render(<App />, document.getElementById('app'));
+const StyledApp = withStyles(styles)(App);
+
+ReactDOM.render(<StyledApp />, document.getElementById('app'));

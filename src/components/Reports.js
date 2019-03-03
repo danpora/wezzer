@@ -4,13 +4,15 @@ import * as Utils from '../utils';
 import WeatherIcon from './WeatherIcon';
 
 export default function Reports(props) {
+  const { className } = props;
+
   const sortedReportsCounts = Utils.getDominantWeatherCodeFromReports(
     props.data,
   );
   const isNoReports = sortedReportsCounts.length === 0;
 
   return (
-    <div>
+    <div className={className}>
       {isNoReports ? (
         'No reports Available'
       ) : (
