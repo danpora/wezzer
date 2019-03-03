@@ -6,13 +6,16 @@ import SearchBar from './components/SearchBar';
 import Header from './components/Header';
 import Forecast from './components/Forecast';
 import Reports from './components/Reports';
+import Loading from './components/Loading';
 import ReportDialog from './components/ReportDialog';
 
-import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+
 import CloudIcon from '@material-ui/icons/Cloud';
 import UsersIcon from '@material-ui/icons/SupervisedUserCircle';
 import MapIcon from '@material-ui/icons/Map';
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 
 import {
@@ -70,6 +73,7 @@ const styles = {
   },
   content: {
     padding: '15px 0',
+    textAlign: 'center',
     '@media (min-width: 768px)': {
       padding: '100px 0'
     }
@@ -296,7 +300,7 @@ class App extends React.Component {
 }
 
 const withLoader = (Component) => (props) => {  
-  return props.isLoading ? 'Loading..' : <Component {...props} />;
+  return props.isLoading ? <Loading {...props} /> : <Component {...props} />;
 };
 
 const ForecastWithLoader = withLoader(Forecast);
