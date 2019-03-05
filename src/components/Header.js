@@ -23,7 +23,7 @@ const styles = {
   }
 };
 
-function CustomizedInputBase(props) {
+function Header(props) {
   const { classes } = props;
 
   return (
@@ -34,8 +34,8 @@ function CustomizedInputBase(props) {
   );
 }
 
-CustomizedInputBase.propTypes = {
+Header.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CustomizedInputBase);
+export default withStyles(styles)(Header);
