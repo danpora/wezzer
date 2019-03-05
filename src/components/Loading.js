@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function Loading (props) {
   const { className } = props;
@@ -6,4 +7,8 @@ export default function Loading (props) {
   return (
     <div className={className}>Loading..</div>
   );
+}
+
+Loading.propTypes = {
+  className: PropTypes.string
 }

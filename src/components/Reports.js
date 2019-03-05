@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import * as Utils from '../utils';
 
 import WeatherIcon from './WeatherIcon';
@@ -40,4 +42,9 @@ function ReportsViewer (props) {
       </div>
     </React.Fragment>
   );
+}
+
+Reports.propTypes = {
+  className: PropTypes.string,
+  data: PropTypes.object
 }

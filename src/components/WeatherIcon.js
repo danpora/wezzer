@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { weatherConditions } from '../constants';
 
@@ -25,3 +27,7 @@ export default function WeatherIcon({ code }) {
 
 }
 
+
+WeatherIcon.propTypes = {
+  code: PropTypes.number
+}

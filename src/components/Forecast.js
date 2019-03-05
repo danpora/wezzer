@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import WeatherIcon from './WeatherIcon';
 
 export default function Forecast(props) {
@@ -20,3 +22,10 @@ export default function Forecast(props) {
     </div>
   );
 }
+
+Forecast.propTypes = {
+  className: PropTypes.string,
+  data: PropTypes.object
+}
+
+

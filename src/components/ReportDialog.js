@@ -1,15 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { weatherConditions } from '../constants';
 
-export default class FormDialog extends React.Component {
+export default class ReportDialog extends React.Component {
   constructor(props) {
     super(props);
 
@@ -82,3 +83,8 @@ export default class FormDialog extends React.Component {
   }
 }
 
+ReportDialog.propTypes = {
+  reportWeather: PropTypes.func,
+  style: PropTypes.object,
+  buttonLabel: PropTypes.string
+}
