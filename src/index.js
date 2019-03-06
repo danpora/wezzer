@@ -7,6 +7,7 @@ import Forecast from './components/Forecast';
 import Reports from './components/Reports';
 import Loading from './components/Loading';
 import ReportDialog from './components/ReportDialog';
+import AutoComplete from './components/AutoComplete';
 
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -242,7 +243,8 @@ class App extends React.Component {
       <div className={classes.root}>
         <section>
           <Header />
-          <SearchBar />
+          {/* <SearchBar /> */}
+          <AutoComplete />
           {tabValue === 0 && (
             <ForecastWithLoader
               className={classes.content}
