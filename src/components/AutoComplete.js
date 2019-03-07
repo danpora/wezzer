@@ -10,42 +10,36 @@ export default class AsyncExample extends React.Component {
       allowNew: false,
       isLoading: false,
       multiple: false,
-      options: [{name:'London'}],
+      options: []
     };
 
     this._handleSearch = this._handleSearch.bind(this);
-
   }
 
-  makeAndHandleRequest () {
-    debugger
+  makeAndHandleRequest() {
     return new Promise((resolve, reject) => {
-      resolve([{name: 'london'}])
-    })
+      resolve(["london"]);
+    });
   }
 
-  _handleSearch (query) {
-    this.setState({isLoading: true});
-    console.log('que')
-    this.makeAndHandleRequest(query)
-      .then((options) => {
-        debugger
-        this.setState({
-          isLoading: false,
-          options,
-        });
+  _handleSearch(query) {
+    this.setState({ isLoading: true });
+    this.makeAndHandleRequest(query).then(options => {
+      this.setState({
+        isLoading: false,
+        options
       });
+    });
   }
 
   render() {
     return (
       <Fragment>
         <AsyncTypeahead
-          // {...this.state}
+          {...this.state}
           id="async-typeahead"
           // minLength={3}
-          options={['one', 'two']}
-          // onSearch={this._handleSearch}
+          onSearch={this._handleSearch}
           placeholder="Search for a Github user..."
           // renderMenuItemChildren={(option, props) => (
           //   <span key={option.id}>{option}</span>
@@ -54,6 +48,4 @@ export default class AsyncExample extends React.Component {
       </Fragment>
     );
   }
-
- 
 }
