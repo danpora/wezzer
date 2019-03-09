@@ -55,6 +55,7 @@ export default class AsyncExample extends React.Component {
           {...this.state}
           useCache
           id="async-typeahead"
+          className={this.props.className}
           labelKey="name"
           minLength={2}
           maxResults={30}
@@ -64,7 +65,7 @@ export default class AsyncExample extends React.Component {
           inputProps={{
             spellCheck: false
           }}
-          placeholder="Search for a Github user..."
+          placeholder="Search for a city.."
           // renderMenuItemChildren={(option, props) => (
           //   <span key={option.id}>{option}</span>
           // )}
