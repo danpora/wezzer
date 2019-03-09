@@ -46,5 +46,5 @@ function ReportsViewer (props) {
 
 Reports.propTypes = {
   className: PropTypes.string,
-  data: PropTypes.object
+  data: PropTypes.array
 }

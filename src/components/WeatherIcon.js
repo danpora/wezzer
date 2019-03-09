@@ -29,5 +29,8 @@ export default function WeatherIcon({ code }) {
 
 
 WeatherIcon.propTypes = {
-  code: PropTypes.number
+  code: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
 }
