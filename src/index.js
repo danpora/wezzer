@@ -82,7 +82,7 @@ const styles = {
     padding: '13px 30px',
     '@media (min-width: 768px)': {
       padding: '40px 0'
-  }
+    }
   }
 };
 
@@ -106,6 +106,7 @@ class App extends React.Component {
         lat: 0,
         lon: 0,
       },
+      selectedCity: {},
       reportButtonLabel: '',
     };
 
@@ -180,6 +181,8 @@ class App extends React.Component {
   handleCitySelection (city) {
     const { lon, lat } = city.location;
 
+    this.setState({ selectedCity: city});
+
     fetch(
       `https://0brc1jr0z3.execute-api.eu-west-1.amazonaws.com/v1/weather/default?lon=${lon}&lat=${lat}`,
     )
@@ -193,9 +196,11 @@ class App extends React.Component {
           },
         });
       });
+
+    this.getReports(lon, lat);
   }
 
-  getReports() {
+  getReports(event, lon, lat) {
     this.setState({
       reports: {
         statusMsg: 'Fetching user reports..',
@@ -204,10 +209,11 @@ class App extends React.Component {
       },
     });
 
+    const targetLon = lon || this.state.myLocation.lon;
+    const targetLat = lat || this.state.myLocation.lat;
+
     fetch(
-      `https://0brc1jr0z3.execute-api.eu-west-1.amazonaws.com/v1/weather?lon=${
-        this.state.myLocation.lon
-      }&lat=${this.state.myLocation.lat}`,
+      `https://0brc1jr0z3.execute-api.eu-west-1.amazonaws.com/v1/weather?lon=${targetLon}&lat=${targetLat}`,
     )
       .then((r) => r.json())
       .then((data) => {
@@ -262,7 +268,6 @@ class App extends React.Component {
       this.state.defaultWeather.statusType === 'REQUEST';
 
     const isLoadingReports = this.state.reports.statusType === 'REQUEST';
-    console.log('classes.content::', classes.content)
     
     return (
       <div className={classes.root}>
@@ -270,6 +275,7 @@ class App extends React.Component {
           <Header />
           {/* <SearchBar /> */}
           <AutoComplete 
+            className={classes.searchBar}
             handleSelection={this.handleCitySelection}
           />
           {tabValue === 0 && (
