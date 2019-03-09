@@ -81,7 +81,9 @@ const styles = {
   searchBar: {
     padding: '13px 30px',
     '@media (min-width: 768px)': {
-      padding: '40px 0'
+      padding: '40px 0',
+      margin: 'auto',
+      maxWidth: '500px'
     }
   }
 };
