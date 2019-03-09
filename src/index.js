@@ -106,6 +106,7 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.getReports = this.getReports.bind(this);
     this.reportWeather = this.reportWeather.bind(this);
+    this.handleCitySelection = this.handleCitySelection.bind(this);
   }
 
   handleChange(event, value) {
@@ -168,6 +169,24 @@ class App extends React.Component {
         // TODO:: alert to user that he'll have to pick location alone
       },
     );
+  }
+
+  handleCitySelection (city) {
+    const { lon, lat } = city.location;
+
+    fetch(
+      `https://0brc1jr0z3.execute-api.eu-west-1.amazonaws.com/v1/weather/default?lon=${lon}&lat=${lat}`,
+    )
+      .then((r) => r.json())
+      .then((data) => {
+        this.setState({
+          defaultWeather: {
+            statusMsg: 'Successfully loaded user reports',
+            statusType: 'SUCCESS',
+            data,
+          },
+        });
+      });
   }
 
   getReports() {
@@ -244,7 +263,9 @@ class App extends React.Component {
         <section>
           <Header />
           {/* <SearchBar /> */}
-          <AutoComplete />
+          <AutoComplete 
+            handleSelection={this.handleCitySelection}
+          />
           {tabValue === 0 && (
             <ForecastWithLoader
               className={classes.content}
