@@ -75,8 +75,14 @@ const styles = {
     padding: '15px 0',
     textAlign: 'center',
     '@media (min-width: 768px)': {
-      padding: '100px 0'
+      padding: '50px 0'
     }
+  },
+  searchBar: {
+    padding: '13px 30px',
+    '@media (min-width: 768px)': {
+      padding: '40px 0'
+  }
   }
 };
 
@@ -287,7 +293,7 @@ class App extends React.Component {
             style={{
               display: 'flex',
               justifyContent: 'center',
-              marginBottom: '10px'
+              marginBottom: '30px'
             }}
             reportWeather={this.reportWeather}
             buttonLabel={this.state.reportButtonLabel}
