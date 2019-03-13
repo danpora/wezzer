@@ -35,6 +35,8 @@ import {
   faBolt
 } from '@fortawesome/free-solid-svg-icons';
 
+import { WEZZER_API } from './constants';
+
 library.add(faCloud);
 library.add(faSun);
 library.add(faCloudRain);
@@ -54,7 +56,6 @@ library.add(faBolt);
 import './style.css';
 import { withStyles } from '@material-ui/core';
 
-const WEZZER_API = 'https://0brc1jr0z3.execute-api.eu-west-1.amazonaws.com/v1';
 
 const styles = {
   root: {

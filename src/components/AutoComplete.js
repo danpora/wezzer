@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 
+import { WEZZER_API } from '../constants';
+
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 export default class AsyncExample extends React.Component {
@@ -19,10 +21,10 @@ export default class AsyncExample extends React.Component {
 
   makeAndHandleRequest(query) {
     return new Promise((resolve, reject) => {
-      fetch(`https://0brc1jr0z3.execute-api.eu-west-1.amazonaws.com/v1/cities?name=${query}`)
+      fetch(`${WEZZER_API}/cities?name=${query}`)
         .then(r => r.json())
         .then(result => {
-          const cities = result.map(c => ({ name: c.name, location: c.coord }));
+          const cities = result.map(c => ({ name: c.name, location: c.coord, country: c.country }));
           resolve(cities);
         })
         .catch(err => {
@@ -66,9 +68,9 @@ export default class AsyncExample extends React.Component {
             spellCheck: false
           }}
           placeholder="Search for a city.."
-          // renderMenuItemChildren={(option, props) => (
-          //   <span key={option.id}>{option}</span>
-          // )}
+          renderMenuItemChildren={(option, props) => (
+            <span key={option.id}>{`${option.name} (${option.country})`}</span>
+          )}
         />
       </Fragment>
     );

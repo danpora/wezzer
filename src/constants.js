@@ -1,3 +1,5 @@
+export const WEZZER_API = 'https://0brc1jr0z3.execute-api.eu-west-1.amazonaws.com/v1';
+
 export const weatherConditions = [
   {
     displayName: 'Clear Sky',
