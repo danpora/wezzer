@@ -94,7 +94,7 @@ class App extends React.Component {
     this.state = {
       tabValue: 0,
       defaultWeather: {
-        data: [],
+        data: {},
         statusMsg: '',
         statusType: 'REQUEST',
       },
@@ -109,6 +109,7 @@ class App extends React.Component {
       },
       selectedCity: {},
       reportButtonLabel: '',
+      locationDetected: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -142,6 +143,7 @@ class App extends React.Component {
             statusMsg: 'Fetching user reports..',
             statusType: 'REQUEST',
           },
+          locationDetected: true
         });
 
         fetch(
@@ -175,6 +177,13 @@ class App extends React.Component {
       // user denied position
       (error) => {
         // TODO:: alert to user that he'll have to pick location alone
+        this.setState({
+          defaultWeather: {
+            statusMsg: 'Unable to get location',
+            statusType: 'WARN',
+            data: {}
+          }
+        })
       },
     );
   }
@@ -274,7 +283,6 @@ class App extends React.Component {
       <div className={classes.root}>
         <section>
           <Header />
-          {/* <SearchBar /> */}
           <AutoComplete 
             className={classes.searchBar}
             handleSelection={this.handleCitySelection}
@@ -304,6 +312,7 @@ class App extends React.Component {
             }}
             reportWeather={this.reportWeather}
             buttonLabel={this.state.reportButtonLabel}
+            isLocationAvailable={this.state.locationDetected}
           />
           <BottomNavigation
             value={tabValue}
