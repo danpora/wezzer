@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import SearchBar from './components/SearchBar';
 import Header from './components/Header';
 import Forecast from './components/Forecast';
 import Reports from './components/Reports';
@@ -52,11 +51,10 @@ library.add(faSmog);
 library.add(faWind);
 library.add(faBolt);
 
-
-import * as Utils from './utils';
-
 import './style.css';
 import { withStyles } from '@material-ui/core';
+
+const WEZZER_API = 'https://0brc1jr0z3.execute-api.eu-west-1.amazonaws.com/v1';
 
 const styles = {
   root: {
@@ -146,7 +144,7 @@ class App extends React.Component {
         });
 
         fetch(
-          `https://0brc1jr0z3.execute-api.eu-west-1.amazonaws.com/v1/weather?lon=${longitude}&lat=${latitude}`,
+          `${WEZZER_API}/weather?lon=${longitude}&lat=${latitude}`,
         )
           .then((r) => r.json())
           .then((data) => {
@@ -160,7 +158,7 @@ class App extends React.Component {
           });
 
         fetch(
-          `https://0brc1jr0z3.execute-api.eu-west-1.amazonaws.com/v1/weather/default?lon=${longitude}&lat=${latitude}`,
+          `${WEZZER_API}/weather/default?lon=${longitude}&lat=${latitude}`,
         )
           .then((r) => r.json())
           .then((data) => {
@@ -186,7 +184,7 @@ class App extends React.Component {
     this.setState({ selectedCity: city});
 
     fetch(
-      `https://0brc1jr0z3.execute-api.eu-west-1.amazonaws.com/v1/weather/default?lon=${lon}&lat=${lat}`,
+      `${WEZZER_API}/weather/default?lon=${lon}&lat=${lat}`,
     )
       .then((r) => r.json())
       .then((data) => {
@@ -215,7 +213,7 @@ class App extends React.Component {
     const targetLat = lat || this.state.myLocation.lat;
 
     fetch(
-      `https://0brc1jr0z3.execute-api.eu-west-1.amazonaws.com/v1/weather?lon=${targetLon}&lat=${targetLat}`,
+      `${WEZZER_API}/weather?lon=${targetLon}&lat=${targetLat}`,
     )
       .then((r) => r.json())
       .then((data) => {
@@ -233,7 +231,7 @@ class App extends React.Component {
     this.setState({ reportButtonLabel: 'Reporting weather..'});
 
     fetch(
-      `https://0brc1jr0z3.execute-api.eu-west-1.amazonaws.com/v1/weather`,
+      `${WEZZER_API}/weather`,
       {
         method: 'POST',
         headers: {
