@@ -1,9 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { withStyles } from '@material-ui/core';
+
 import * as Utils from '../utils';
 
 import WeatherIcon from './WeatherIcon';
+
+const styles = {
+  root: {
+    padding: '15px 0'
+  },
+  centerText: {
+    textAlign: 'center'
+  },
+  mediumText: {
+    fontSize: '3em'
+  }
+}
 
 export default function Reports(props) {
   const { className } = props;
@@ -18,31 +32,34 @@ export default function Reports(props) {
       {isNoReports ? (
         'No reports Available'
       ) : (
-        <ReportsViewer reportsCounts={sortedReportsCounts} />
+        <ReportsViewerStyled reportsCounts={sortedReportsCounts} />
       )}
     </div>
   );
 }
 
 function ReportsViewer (props) {
+  const { classes } = props;
   const [weatherCode, weatherCodeVoters] = props.reportsCounts[0];
 
   return (
     <React.Fragment>
-      <div style={{ padding: '15px 0' }}>
-        <div style={{ textAlign: 'center' }}>
+      <div className={classes.root}>
+        <div className={classes.centerText}>
         <WeatherIcon code={weatherCode} />
         </div>
-        <div style={{ textAlign: 'center', fontSize: '3em' }}>
+        <div className={classes.centerText + ' ' + classes.mediumText}>
           {Utils.weatherCodeToDescription[weatherCode]}
         </div>
-        <div style={{ textAlign: 'center' }}>
+        <div className={classes.centerText}>
           {`According to ${weatherCodeVoters} humans (10Km around you)`}
         </div>
       </div>
     </React.Fragment>
   );
 }
+
+const ReportsViewerStyled =  withStyles(styles)(ReportsViewer);
 
 Reports.propTypes = {
   className: PropTypes.string,

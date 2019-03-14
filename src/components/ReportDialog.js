@@ -11,7 +11,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { weatherConditions } from '../constants';
 
-export default class ReportDialog extends React.Component {
+import { withStyles } from '@material-ui/core';
+
+const styles = {
+  gridContainer: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr 1fr',
+    gridGap: '20px',
+  },
+  button: {
+    color: '#3782a9'
+  }
+}
+
+class ReportDialog extends React.Component {
   constructor(props) {
     super(props);
 
@@ -38,6 +51,7 @@ export default class ReportDialog extends React.Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
       <div style={this.props.style}>
         <Tooltip
@@ -50,8 +64,8 @@ export default class ReportDialog extends React.Component {
         >
           <span>
             <Button
+              className={classes.button}
               variant="outlined"
-              style={{ color: '#3782a9' }}
               disabled={
                 this.props.buttonLabel !== '' || !this.props.isLocationAvailable
               }
@@ -69,13 +83,7 @@ export default class ReportDialog extends React.Component {
         >
           <DialogTitle id="form-dialog-title">Whats the weather?</DialogTitle>
           <DialogContent>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr 1fr',
-                gridGap: '20px',
-              }}
-            >
+            <div className={classes.gridContainer}>
               {weatherConditions.map((w) => (
                 <FontAwesomeIcon
                   key={w.code}
@@ -98,8 +106,11 @@ export default class ReportDialog extends React.Component {
   }
 }
 
+
 ReportDialog.propTypes = {
   reportWeather: PropTypes.func,
   style: PropTypes.object,
   buttonLabel: PropTypes.string,
 };
+
+export default withStyles(styles)(ReportDialog);
