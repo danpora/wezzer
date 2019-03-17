@@ -7,7 +7,8 @@ import WeatherIcon from './WeatherIcon';
 
 const styles = {
   centerText: {
-    textAlign: 'center'
+    margin: 'auto',
+    width: '150px'
   },
   smallText: {
     fontSize: '2em'
