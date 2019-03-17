@@ -5,27 +5,30 @@ export const weatherConditions = [
   {
     displayName: 'Clear Sky',
     code: 800,
-    icon: { day: '10d', night: '10n' },
+    icon: { day: '01d', night: '01n' },
+    isReportable: true,
   },
   {
     displayName: 'Few Clouds',
     code: 801,
     icon: { day: '02d', night: '02n' },
+    isReportable: true,
   },
   {
     displayName: 'Scattered Clouds',
     code: 802,
     icon: { day: '03d', night: '03d' },
+    isReportable: true,
   },
   {
     displayName: 'Broken Clouds',
     code: 803,
-    icon: { day: '04d', night: '04n' },
+    icon: { day: '03d', night: '03d' },
   },
   {
     displayName: 'Overcast Clouds',
     code: 804,
-    icon: { day: '04d', night: '04n' },
+    icon: { day: '03d', night: '03d' },
   },
   {
     displayName: 'Light Rain',
@@ -34,17 +37,17 @@ export const weatherConditions = [
   },
   {
     code: 501,
-    displayName: ' moderate rain',
+    displayName: 'moderate rain',
     icon: { day: '10d', night: '10n' },
   },
   {
-    displayName: 'Moderate Rain',
+    displayName: 'heavy intensity rain',
     code: 502,
     icon: { day: '10d', night: '10n' },
   },
   {
     code: 503,
-    displayName: ' very heavy rain',
+    displayName: 'very heavy rain',
     icon: { day: '10d', night: '10n' },
   },
   {
@@ -61,6 +64,7 @@ export const weatherConditions = [
     code: 520,
     displayName: ' light intensity shower rain',
     icon: { day: '09d', night: '09n' },
+    isReportable: true,
   },
   {
     displayName: 'Heavy Intensity Rain',
@@ -80,52 +84,53 @@ export const weatherConditions = [
   {
     displayName: 'Snow',
     code: 601,
-    icon: { day: '13d', night: '13n' },
+    icon: { day: '13d', night: '13d' },
   },
   {
     code: 600,
     displayName: 'light snow',
-    icon: { day: '13d', night: '13n' },
+    icon: { day: '13d', night: '13d' },
+    isReportable: true,
   },
   {
     code: 601,
     displayName: 'Snow',
-    icon: { day: '13d', night: '13n' },
+    icon: { day: '13d', night: '13d' },
   },
   {
     code: 602,
     displayName: 'Heavy snow',
-    icon: { day: '13d', night: '13n' },
+    icon: { day: '13d', night: '13d' },
   },
   {
     code: 611,
     displayName: 'Sleet',
-    icon: { day: '13d', night: '13n' },
+    icon: { day: '13d', night: '13d' },
   },
   {
     code: 612,
     displayName: 'Light shower sleet',
-    icon: { day: '13d', night: '13n' },
+    icon: { day: '13d', night: '13d' },
   },
   {
     code: 613,
     displayName: 'Shower sleet',
-    icon: { day: '13d', night: '13n' },
+    icon: { day: '13d', night: '13d' },
   },
   {
     code: 615,
     displayName: 'Light rain and snow',
-    icon: { day: '13d', night: '13n' },
+    icon: { day: '13d', night: '13d' },
   },
   {
     code: 616,
     displayName: 'Rain and snow',
-    icon: { day: '13d', night: '13n' },
+    icon: { day: '13d', night: '13d' },
   },
   {
     code: 620,
     displayName: 'Light shower snow',
-    icon: { day: '13d', night: '13n' },
+    icon: { day: '13d', night: '13d' },
   },
   {
     code: 621,
@@ -140,7 +145,8 @@ export const weatherConditions = [
   {
     displayName: 'Fog',
     code: 741,
-    icon: { day: 'smog', night: 'smog' },
+    icon: { day: '50d', night: '50d' },
+    isReportable: true,
   },
   { 
     code: 701, 
@@ -160,11 +166,6 @@ export const weatherConditions = [
   { 
     code: 731, 
     displayName: 'Dust', 
-    icon: { day: '50d', night: '50d' } 
-  },
-  { 
-    code: 741, 
-    displayName: 'Fog', 
     icon: { day: '50d', night: '50d' } 
   },
   { 
@@ -195,39 +196,49 @@ export const weatherConditions = [
   { 
     code: 200, 
     displayName: 'thunderstorm with light rain', 
-    icon: { day: '11d', night: '11n'}},
+    icon: { day: '11d', night: '11n'},
+    isReportable: true,
+  },
   { 
     code: 202, 
     displayName: 'thunderstorm with heavy rain', 
-    icon: { day: '11d', night: '11n'}},
+    icon: { day: '11d', night: '11n'}
+  },
   { 
     code: 210, 
     displayName: 'light thunderstorm', 
-    icon: { day: '11d', night: '11n'}},
+    icon: { day: '11d', night: '11n'}
+  },
   { 
     code: 211, 
     displayName: 'thunderstorm', 
-    icon: { day: '11d', night: '11n'}},
+    icon: { day: '11d', night: '11n'}
+  },
   { 
     code: 212, 
     displayName: 'heavy thunderstorm', 
-    icon: { day: '11d', night: '11n'}},
+    icon: { day: '11d', night: '11n'}
+  },
   { 
     code: 221, 
     displayName: 'ragged thunderstorm', 
-    icon: { day: '11d', night: '11n'}},
+    icon: { day: '11d', night: '11n'}
+  },
   { 
     code: 230, 
     displayName: 'thunderstorm with light drizzle', 
-    icon: { day: '11d', night: '11n'}},
+    icon: { day: '11d', night: '11n'}
+  },
   { 
     code: 231, 
     displayName: 'thunderstorm with drizzle', 
-    icon: { day: '11d', night: '11n'}},
+    icon: { day: '11d', night: '11n'}
+  },
   { 
     code: 232, 
     displayName: 'thunderstorm with heavy drizzle', 
-    icon: { day: '11d', night: '11n'}},
+    icon: { day: '11d', night: '11n'}
+  },
   {
     displayName: 'Meteor',
     code: 'default',
