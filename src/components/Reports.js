@@ -11,6 +11,10 @@ const styles = {
   root: {
     padding: '15px 0'
   },
+  weatherIcon: {
+    margin: 'auto',
+    width: '150px'
+  },
   centerText: {
     textAlign: 'center'
   },
@@ -45,7 +49,7 @@ function ReportsViewer (props) {
   return (
     <React.Fragment>
       <div className={classes.root}>
-        <div className={classes.centerText}>
+        <div className={classes.weatherIcon}>
         <WeatherIcon code={weatherCode} />
         </div>
         <div className={classes.centerText + ' ' + classes.mediumText}>
