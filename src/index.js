@@ -74,7 +74,7 @@ const styles = {
     padding: '15px 0',
     textAlign: 'center',
     '@media (min-width: 768px)': {
-      padding: '50px 0'
+      padding: '5px 0'
     }
   },
   searchBar: {
