@@ -7,7 +7,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Tooltip from '@material-ui/core/Tooltip';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { weatherConditions } from '../constants';
 

@@ -15,43 +15,7 @@ import CloudIcon from '@material-ui/icons/Cloud';
 import UsersIcon from '@material-ui/icons/SupervisedUserCircle';
 import MapIcon from '@material-ui/icons/Map';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
-
-import {
-  faCloud,
-  faSun,
-  faCloudRain,
-  faCloudShowersHeavy,
-  faCloudSun,
-  faMeteor,
-  faCloudSunRain,
-  faCloudMeatball,
-  faCloudMoonRain,
-  faCloudMoon,
-  faMoon,
-  faRainbow,
-  faSmog,
-  faWind,
-  faBolt
-} from '@fortawesome/free-solid-svg-icons';
-
 import { WEZZER_API } from './constants';
-
-library.add(faCloud);
-library.add(faSun);
-library.add(faCloudRain);
-library.add(faCloudShowersHeavy);
-library.add(faCloudSun);
-library.add(faMeteor);
-library.add(faCloudSunRain);
-library.add(faCloudMeatball);
-library.add(faCloudMoonRain);
-library.add(faCloudMoon);
-library.add(faMoon);
-library.add(faRainbow);
-library.add(faSmog);
-library.add(faWind);
-library.add(faBolt);
 
 import './style.css';
 import { withStyles } from '@material-ui/core';
