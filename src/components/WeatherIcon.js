@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { weatherConditions } from '../constants';
 
 const weatherCodeToIcon = (dayOrNight) => weatherConditions.reduce((acc, w) => ({
@@ -22,8 +21,8 @@ export default function WeatherIcon({ code }) {
   const iconName = 
     weatherCodeToIcon(dayOrNight)[code] || 
     weatherCodeToIcon(dayOrNight).default;
-
-  return <FontAwesomeIcon icon={iconName} size={'5x'} color="grey" />;
+  
+  return <img src={require(`../assets/images/weather/${iconName}.svg`)} />;
 
 }
 
