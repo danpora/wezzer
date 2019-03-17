@@ -84,14 +84,14 @@ class ReportDialog extends React.Component {
           <DialogTitle id="form-dialog-title">Whats the weather?</DialogTitle>
           <DialogContent>
             <div className={classes.gridContainer}>
-              {weatherConditions.map((w) => (
-                <FontAwesomeIcon
-                  key={w.code}
-                  icon={w.icon.day}
-                  size={'2x'}
-                  color={'grey'}
-                  onClick={this.handleWeatherIconClick.bind(null, w.code)}
-                />
+              {weatherConditions
+                .filter(w => w.isReportable)
+                .map((w) => (
+                  <img
+                    key={w.code}
+                    src={require(`../assets/images/weather/${w.icon.day}.svg`)}
+                    onClick={this.handleWeatherIconClick.bind(null, w.code)}
+                  />
               ))}
             </div>
           </DialogContent>
