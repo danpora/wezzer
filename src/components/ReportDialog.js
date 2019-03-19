@@ -18,8 +18,14 @@ const styles = {
     gridTemplateColumns: '1fr 1fr 1fr',
     gridGap: '20px',
   },
+  buttonContainer: {
+    margin: '10px auto',
+    '@media (min-width: 768px)': {
+      margin: '20px auto',
+    }
+  },
   button: {
-    color: '#3782a9'
+    color: '#3782a9',
   }
 }
 
@@ -52,7 +58,7 @@ class ReportDialog extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div style={this.props.style}>
+      <div className={classes.buttonContainer}>
         <Tooltip
           placement="top-start"
           title={

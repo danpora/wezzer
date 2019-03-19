@@ -48,6 +48,19 @@ const styles = {
       margin: 'auto',
       maxWidth: '500px'
     }
+  },
+  flexColumn: {
+    display: 'flex',
+    flexDirection: 'column',
+    
+  },
+  navigationButton: {
+    color: 'grey',
+  },
+  reportDialog: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: '30px'
   }
 };
 
@@ -267,13 +280,9 @@ class App extends React.Component {
           )}
           {tabValue === 2 && <div>Page under construction!</div>}
         </section>
-        <section style={{ display: 'flex', flexDirection: 'column' }}>
+        <section className={classes.flexColumn}>
           <ReportDialog
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              marginBottom: '30px'
-            }}
+            className={classes.reportDialog}
             reportWeather={this.reportWeather}
             buttonLabel={this.state.reportButtonLabel}
             isLocationAvailable={this.state.locationDetected}
@@ -284,18 +293,18 @@ class App extends React.Component {
             showLabels
           >
             <BottomNavigationAction
-              style={{ color: 'grey' }}
+              className={classes.navigationButton}
               label="Forecast"
               icon={<CloudIcon />}
             />
             <BottomNavigationAction
-              style={{ color: 'grey' }}
+              className={classes.navigationButton}
               label="Reports"
               icon={<UsersIcon />}
               onClick={this.getReports}
             />
             <BottomNavigationAction
-              style={{ color: 'grey' }}
+              className={classes.navigationButton}
               label="Map"
               icon={<MapIcon />}
               disabled
