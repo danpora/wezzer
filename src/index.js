@@ -278,7 +278,6 @@ class App extends React.Component {
               data={this.state.reports.data}
             />
           )}
-          {tabValue === 2 && <div>Page under construction!</div>}
         </section>
         <section className={classes.flexColumn}>
           <ReportDialog
@@ -302,12 +301,6 @@ class App extends React.Component {
               label="Reports"
               icon={<UsersIcon />}
               onClick={this.getReports}
-            />
-            <BottomNavigationAction
-              className={classes.navigationButton}
-              label="Map"
-              icon={<MapIcon />}
-              disabled
             />
           </BottomNavigation>
         </section>
