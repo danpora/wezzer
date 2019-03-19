@@ -61,7 +61,11 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     marginBottom: '30px'
+  },
+  bottomNav: {
+    background: 'transparent'
   }
+  
 };
 
 class App extends React.Component {
@@ -287,6 +291,7 @@ class App extends React.Component {
             isLocationAvailable={this.state.locationDetected}
           />
           <BottomNavigation
+            className={classes.bottomNav}
             value={tabValue}
             onChange={this.handleChange}
             showLabels
