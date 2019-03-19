@@ -21,7 +21,7 @@ const styles = {
   buttonContainer: {
     margin: '10px auto',
     '@media (min-width: 768px)': {
-      margin: '20px auto',
+      margin: '45px auto',
     }
   },
   button: {
