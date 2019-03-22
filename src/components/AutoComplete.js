@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 
-import { WEZZER_API } from '../constants';
+import * as ApiService from '../services/api';
 
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
@@ -21,8 +21,7 @@ export default class AsyncExample extends React.Component {
 
   makeAndHandleRequest(query) {
     return new Promise((resolve, reject) => {
-      fetch(`${WEZZER_API}/cities?name=${query}`)
-        .then(r => r.json())
+      ApiService.getCities(query)
         .then(result => {
           const cities = result.map(c => ({ name: c.name, location: c.coord, country: c.country }));
           resolve(cities);

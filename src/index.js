@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import * as ApiService from './services/api';
+
 import Header from './components/Header';
 import Forecast from './components/Forecast';
 import Reports from './components/Reports';
@@ -126,10 +128,7 @@ class App extends React.Component {
           locationDetected: true
         });
 
-        fetch(
-          `${WEZZER_API}/weather?lon=${longitude}&lat=${latitude}`,
-        )
-          .then((r) => r.json())
+        ApiService.getUserReports(longitude, latitude)
           .then((data) => {
             this.setState({
               reports: {
@@ -140,10 +139,7 @@ class App extends React.Component {
             });
           });
 
-        fetch(
-          `${WEZZER_API}/weather/default?lon=${longitude}&lat=${latitude}`,
-        )
-          .then((r) => r.json())
+          ApiService.getDefaultWeather(longitude, latitude)
           .then((data) => {
             this.setState({
               defaultWeather: {
@@ -173,10 +169,7 @@ class App extends React.Component {
 
     this.setState({ selectedCity: city});
 
-    fetch(
-      `${WEZZER_API}/weather/default?lon=${lon}&lat=${lat}`,
-    )
-      .then((r) => r.json())
+    ApiService.getDefaultWeather(lon, lat)
       .then((data) => {
         this.setState({
           defaultWeather: {
@@ -202,10 +195,7 @@ class App extends React.Component {
     const targetLon = lon || this.state.myLocation.lon;
     const targetLat = lat || this.state.myLocation.lat;
 
-    fetch(
-      `${WEZZER_API}/weather?lon=${targetLon}&lat=${targetLat}`,
-    )
-      .then((r) => r.json())
+    ApiService.getUserReports(targetLon, targetLat)
       .then((data) => {
         this.setState({
           reports: {
@@ -219,24 +209,10 @@ class App extends React.Component {
 
   reportWeather (weatherCode) {
     this.setState({ reportButtonLabel: 'Reporting weather..'});
+    
+    const { lon, lat } = this.state.myLocation;
 
-    fetch(
-      `${WEZZER_API}/weather`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          lon: this.state.myLocation.lon,
-          lat: this.state.myLocation.lat,
-          data: {
-            code: weatherCode
-          }
-        })
-      }
-    )
-      .then((r) => r.json())
+    ApiService.setUserReport(lon, lat, weatherCode)
       .then((data) => {
           setTimeout(() => {
 
