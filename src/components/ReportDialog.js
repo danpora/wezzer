@@ -26,6 +26,11 @@ const styles = {
   },
   button: {
     color: '#3782a9',
+  },
+  weatherIcon: {
+    '&:hover': {
+      cursor: 'pointer'
+    }
   }
 }
 
@@ -60,7 +65,8 @@ class ReportDialog extends React.Component {
     return (
       <div className={classes.buttonContainer}>
         <Tooltip
-          placement="top-start"
+          placement="top-end"
+          style={{ fontSize: '3em'}}
           title={
             this.props.isLocationAvailable
               ? 'Report the weather you see'
@@ -94,6 +100,7 @@ class ReportDialog extends React.Component {
                 .map((w) => (
                   <img
                     key={w.code}
+                    className={classes.weatherIcon}
                     src={require(`../assets/images/weather/${w.icon.day}.svg`)}
                     onClick={this.handleWeatherIconClick.bind(null, w.code)}
                   />
