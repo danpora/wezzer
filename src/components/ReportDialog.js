@@ -19,7 +19,7 @@ const styles = {
     gridGap: '20px',
   },
   buttonContainer: {
-    margin: '10px auto',
+    margin: 'auto',
     '@media (min-width: 768px)': {
       margin: '45px auto',
     }
