@@ -35,6 +35,7 @@ const styles = {
   },
   content: {
     padding: '15px 0',
+    height: '100%',
     textAlign: 'center',
     '@media (min-width: 768px)': {
       padding: '5px 0'
@@ -165,7 +166,14 @@ class App extends React.Component {
   handleCitySelection (city) {
     const { lon, lat } = city.location;
 
-    this.setState({ selectedCity: city});
+    this.setState({ 
+      selectedCity: city,
+      defaultWeather: {
+        data: {},
+        statusMsg: '',
+        statusType: 'REQUEST',
+      }
+    });
 
     ApiService.getDefaultWeather(lon, lat)
       .then((data) => {
