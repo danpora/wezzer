@@ -16,8 +16,6 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import CloudIcon from '@material-ui/icons/Cloud';
 import UsersIcon from '@material-ui/icons/SupervisedUserCircle';
 
-import { WEZZER_API } from './constants';
-
 import './style.css';
 import { withStyles } from '@material-ui/core';
 
