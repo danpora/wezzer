@@ -59,7 +59,7 @@ export default class AsyncExample extends React.Component {
           className={this.props.className}
           labelKey="name"
           minLength={2}
-          maxResults={30}
+          maxResults={15}
           onSearch={this.handleSearch}
           onChange={this.handleSelection}
           delay={300}
@@ -67,7 +67,7 @@ export default class AsyncExample extends React.Component {
             spellCheck: false
           }}
           placeholder="Search for a city.."
-          renderMenuItemChildren={(option, props) => (
+          renderMenuItemChildren={(option) => (
             <span key={option.id}>{`${option.name} (${option.country})`}</span>
           )}
         />
