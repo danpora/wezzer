@@ -198,8 +198,11 @@ class App extends React.Component {
       },
     });
 
-    const targetLon = lon || this.state.myLocation.lon;
-    const targetLat = lat || this.state.myLocation.lat;
+    const selectedCityLocation = this.state.selectedCity.location || {};
+    const myLocation = this.state.myLocation;
+    
+    const targetLon = lon || selectedCityLocation.lon || myLocation.lon;
+    const targetLat = lat || selectedCityLocation.lat || myLocation.lat;
 
     ApiService.getUserReports(targetLon, targetLat)
       .then((data) => {
