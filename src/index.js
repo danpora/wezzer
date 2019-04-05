@@ -103,6 +103,7 @@ class App extends React.Component {
     this.getReports = this.getReports.bind(this);
     this.reportWeather = this.reportWeather.bind(this);
     this.handleCitySelection = this.handleCitySelection.bind(this);
+    this.handleLocationButton = this.handleLocationButton.bind(this);
   }
 
   handleChange(event, value) {
@@ -241,6 +242,35 @@ class App extends React.Component {
       });
   }
 
+  handleLocationButton () {
+    const { lat, lon } = this.state.myLocation;
+
+    // no location permission allowed yet
+    if (lon && lat) {
+      ApiService.getUserReports(lon, lat)
+      .then((data) => {
+        this.setState({
+          reports: {
+            statusMsg: 'Successfully loaded forecast',
+            statusType: 'SUCCESS',
+            data,
+          },
+        });
+      });
+
+      ApiService.getDefaultWeather(lon, lat)
+      .then((data) => {
+        this.setState({
+          defaultWeather: {
+            statusMsg: 'Successfully loaded user reports',
+            statusType: 'SUCCESS',
+            data,
+          },
+        });
+      });
+    }
+  }
+
   render() {
     const { classes } = this.props;
     const { tabValue } = this.state;
@@ -254,10 +284,15 @@ class App extends React.Component {
       <div className={classes.root}>
         <section>
           <Header />
-          <AutoComplete 
-            className={classes.searchBar}
-            handleSelection={this.handleCitySelection}
-          />
+          <div className={classes.searchBar}>
+            <AutoComplete 
+              handleSelection={this.handleCitySelection}
+            />
+            <GpsFixed 
+              className={classes.locationButton} 
+              onClick={this.handleLocationButton}
+            />
+          </div>
           {tabValue === 0 && (
             <ForecastWithLoader
               className={classes.content}
