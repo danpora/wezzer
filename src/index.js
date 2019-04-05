@@ -15,6 +15,7 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 
 import CloudIcon from '@material-ui/icons/Cloud';
 import UsersIcon from '@material-ui/icons/SupervisedUserCircle';
+import GpsFixed from '@material-ui/icons/GpsFixed';
 
 import './style.css';
 import { withStyles } from '@material-ui/core';
@@ -48,6 +49,11 @@ const styles = {
       margin: 'auto',
       maxWidth: '500px'
     }
+  },
+  locationButton: {
+    float: 'right', 
+    margin: '8px 0', 
+    color: 'grey'
   },
   flexColumn: {
     display: 'flex',
