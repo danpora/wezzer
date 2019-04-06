@@ -20,7 +20,6 @@ import GpsFixed from '@material-ui/icons/GpsFixed';
 import './style.css';
 import { withStyles } from '@material-ui/core';
 
-
 const styles = {
   root: {
     height: '100%',
@@ -31,34 +30,33 @@ const styles = {
     '@media (min-width: 768px)': {
       width: '60%',
       margin: 'auto',
-      padding: '100px 0'
-    }
+      padding: '100px 0',
+    },
   },
   content: {
     padding: '15px 0',
     height: '100%',
     textAlign: 'center',
     '@media (min-width: 768px)': {
-      padding: '5px 0'
-    }
+      padding: '5px 0',
+    },
   },
   searchBar: {
     padding: '13px 30px',
     '@media (min-width: 768px)': {
       padding: '40px 0',
       margin: 'auto',
-      maxWidth: '500px'
-    }
+      maxWidth: '500px',
+    },
   },
   locationButton: {
-    float: 'right', 
-    margin: '8px 0', 
-    color: 'grey'
+    float: 'right',
+    margin: '8px 0',
+    color: 'grey',
   },
   flexColumn: {
     display: 'flex',
     flexDirection: 'column',
-    
   },
   navigationButton: {
     color: 'grey',
@@ -66,12 +64,11 @@ const styles = {
   reportDialog: {
     display: 'flex',
     justifyContent: 'center',
-    marginBottom: '30px'
+    marginBottom: '30px',
   },
   bottomNav: {
-    background: 'transparent'
-  }
-  
+    background: 'transparent',
+  },
 };
 
 class App extends React.Component {
@@ -96,7 +93,7 @@ class App extends React.Component {
       },
       selectedCity: {},
       reportButtonLabel: '',
-      locationDetected: false
+      locationDetected: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -131,30 +128,28 @@ class App extends React.Component {
             statusMsg: 'Fetching user reports..',
             statusType: 'REQUEST',
           },
-          locationDetected: true
+          locationDetected: true,
         });
 
-        ApiService.getUserReports(longitude, latitude)
-          .then((data) => {
-            this.setState({
-              reports: {
-                statusMsg: 'Successfully loaded forecast',
-                statusType: 'SUCCESS',
-                data,
-              },
-            });
+        ApiService.getUserReports(longitude, latitude).then((data) => {
+          this.setState({
+            reports: {
+              statusMsg: 'Successfully loaded forecast',
+              statusType: 'SUCCESS',
+              data,
+            },
           });
+        });
 
-          ApiService.getDefaultWeather(longitude, latitude)
-          .then((data) => {
-            this.setState({
-              defaultWeather: {
-                statusMsg: 'Successfully loaded user reports',
-                statusType: 'SUCCESS',
-                data,
-              },
-            });
+        ApiService.getDefaultWeather(longitude, latitude).then((data) => {
+          this.setState({
+            defaultWeather: {
+              statusMsg: 'Successfully loaded user reports',
+              statusType: 'SUCCESS',
+              data,
+            },
           });
+        });
       },
       // user denied position
       (error) => {
@@ -163,35 +158,34 @@ class App extends React.Component {
           defaultWeather: {
             statusMsg: 'Unable to get location',
             statusType: 'WARN',
-            data: {}
-          }
-        })
+            data: {},
+          },
+        });
       },
     );
   }
 
-  handleCitySelection (city) {
+  handleCitySelection(city) {
     const { lon, lat } = city.location;
 
-    this.setState({ 
+    this.setState({
       selectedCity: city,
       defaultWeather: {
         data: {},
         statusMsg: '',
         statusType: 'REQUEST',
-      }
+      },
     });
 
-    ApiService.getDefaultWeather(lon, lat)
-      .then((data) => {
-        this.setState({
-          defaultWeather: {
-            statusMsg: 'Successfully loaded user reports',
-            statusType: 'SUCCESS',
-            data,
-          },
-        });
+    ApiService.getDefaultWeather(lon, lat).then((data) => {
+      this.setState({
+        defaultWeather: {
+          statusMsg: 'Successfully loaded user reports',
+          statusType: 'SUCCESS',
+          data,
+        },
       });
+    });
 
     this.getReports(lon, lat);
   }
@@ -207,48 +201,43 @@ class App extends React.Component {
 
     const selectedCityLocation = this.state.selectedCity.location || {};
     const myLocation = this.state.myLocation;
-    
+
     const targetLon = lon || selectedCityLocation.lon || myLocation.lon;
     const targetLat = lat || selectedCityLocation.lat || myLocation.lat;
 
-    ApiService.getUserReports(targetLon, targetLat)
-      .then((data) => {
-        this.setState({
-          reports: {
-            statusMsg: 'Successfully loaded forecast',
-            statusType: 'SUCCESS',
-            data,
-          },
-        });
+    ApiService.getUserReports(targetLon, targetLat).then((data) => {
+      this.setState({
+        reports: {
+          statusMsg: 'Successfully loaded forecast',
+          statusType: 'SUCCESS',
+          data,
+        },
       });
+    });
   }
 
-  reportWeather (weatherCode) {
-    this.setState({ reportButtonLabel: 'Reporting weather..'});
-    
+  reportWeather(weatherCode) {
+    this.setState({ reportButtonLabel: 'Reporting weather..' });
+
     const { lon, lat } = this.state.myLocation;
 
-    ApiService.setUserReport(lon, lat, weatherCode)
-      .then((data) => {
-          setTimeout(() => {
+    ApiService.setUserReport(lon, lat, weatherCode).then((data) => {
+      setTimeout(() => {
+        this.setState({ reportButtonLabel: 'Weather reported!' });
 
-            this.setState({ reportButtonLabel: 'Weather reported!' });
-            
-            setTimeout(() => {
-              this.setState({ reportButtonLabel: '' });
-            }, 4000);
-
-          }, 3000);
-      });
+        setTimeout(() => {
+          this.setState({ reportButtonLabel: '' });
+        }, 4000);
+      }, 3000);
+    });
   }
 
-  handleLocationButton () {
+  handleLocationButton() {
     const { lat, lon } = this.state.myLocation;
 
     // no location permission allowed yet
     if (lon && lat) {
-      ApiService.getUserReports(lon, lat)
-      .then((data) => {
+      ApiService.getUserReports(lon, lat).then((data) => {
         this.setState({
           reports: {
             statusMsg: 'Successfully loaded forecast',
@@ -258,8 +247,7 @@ class App extends React.Component {
         });
       });
 
-      ApiService.getDefaultWeather(lon, lat)
-      .then((data) => {
+      ApiService.getDefaultWeather(lon, lat).then((data) => {
         this.setState({
           defaultWeather: {
             statusMsg: 'Successfully loaded user reports',
@@ -279,20 +267,16 @@ class App extends React.Component {
       this.state.defaultWeather.statusType === 'REQUEST';
 
     const isLoadingReports = this.state.reports.statusType === 'REQUEST';
-    
+
     return (
       <div className={classes.root}>
         <section>
           <Header />
-          <div className={classes.searchBar}>
-            <AutoComplete 
-              handleSelection={this.handleCitySelection}
-            />
-            <GpsFixed 
-              className={classes.locationButton} 
-              onClick={this.handleLocationButton}
-            />
-          </div>
+          <SearchSection
+            classes={classes}
+            handleCitySelection={this.handleCitySelection}
+            onCurrentLocationClick={this.handleLocationButton}
+          />
           {tabValue === 0 && (
             <ForecastWithLoader
               className={classes.content}
@@ -339,7 +323,17 @@ class App extends React.Component {
   }
 }
 
-const withLoader = (Component) => (props) => {  
+const SearchSection = (props) => (
+  <div className={props.classes.searchBar}>
+    <AutoComplete handleSelection={props.handleCitySelection} />
+    <GpsFixed
+      className={props.classes.locationButton}
+      onClick={props.onCurrentLocationClick}
+    />
+  </div>
+);
+
+const withLoader = (Component) => (props) => {
   return props.isLoading ? <Loading {...props} /> : <Component {...props} />;
 };
 
