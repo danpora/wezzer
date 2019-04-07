@@ -53,6 +53,10 @@ const styles = {
     float: 'right',
     margin: '8px 0',
     color: 'grey',
+    '&:hover': {
+      cursor: 'pointer',
+      fontSize: '34px'
+    }
   },
   flexColumn: {
     display: 'flex',
@@ -277,20 +281,13 @@ class App extends React.Component {
             handleCitySelection={this.handleCitySelection}
             onCurrentLocationClick={this.handleLocationButton}
           />
-          {tabValue === 0 && (
-            <ForecastWithLoader
-              className={classes.content}
-              isLoading={isLoadingDefaultWeather}
-              data={this.state.defaultWeather.data}
-            />
-          )}
-          {tabValue === 1 && (
-            <ReportsWithLoader
-              className={classes.content}
-              isLoading={isLoadingReports}
-              data={this.state.reports.data}
-            />
-          )}
+          <WeatherContent 
+            classes={classes}
+            data={this.state} 
+            isLoadingDefaultWeather={isLoadingDefaultWeather}
+            isLoadingReports={isLoadingReports}
+            tabValue={tabValue}
+          />
         </section>
         <section className={classes.flexColumn}>
           <ReportDialog
@@ -323,15 +320,38 @@ class App extends React.Component {
   }
 }
 
-const SearchSection = (props) => (
-  <div className={props.classes.searchBar}>
-    <AutoComplete handleSelection={props.handleCitySelection} />
-    <GpsFixed
-      className={props.classes.locationButton}
-      onClick={props.onCurrentLocationClick}
-    />
-  </div>
-);
+function WeatherContent(props) {
+  return (
+    <>
+      {props.tabValue === 0 && (
+        <ForecastWithLoader
+          className={props.classes.content}
+          isLoading={props.isLoadingDefaultWeather}
+          data={props.data.defaultWeather.data}
+        />
+      )}
+      {props.tabValue === 1 && (
+        <ReportsWithLoader
+          className={props.classes.content}
+          isLoading={props.isLoadingReports}
+          data={props.data.reports.data}
+        />
+      )}
+    </>
+  );
+}
+
+function SearchSection(props) {
+  return (
+    <div className={props.classes.searchBar}>
+      <AutoComplete handleSelection={props.handleCitySelection} />
+      <GpsFixed
+        className={props.classes.locationButton}
+        onClick={props.onCurrentLocationClick}
+      />
+    </div>
+  );
+}
 
 const withLoader = (Component) => (props) => {
   return props.isLoading ? <Loading {...props} /> : <Component {...props} />;
