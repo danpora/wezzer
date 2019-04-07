@@ -12,7 +12,11 @@ const styles = {
   },
   headerIcon: {
     color: '#6abfea',
-    fontSize: '47px'
+    fontSize: '47px',
+    transition: 'color 1s',
+    '&:hover': {
+      color: '#e6ca57'
+    }
   },
   title: {
     display: 'flex',
