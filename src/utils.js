@@ -1,7 +1,9 @@
 import { weatherConditions } from './constants';
 
-const R = 6371e3; // earth radius in metres
+// earth radius in metres
+const R = 6371e3; 
 
+// calculate distance between two coordinates
 export function distance(lat1, lon1, lat2, lon2) {
   const φ1 = toRadians(lat1);
   const φ2 = toRadians(lat2);
@@ -16,10 +18,12 @@ export function distance(lat1, lon1, lat2, lon2) {
   return R * c;
 }
 
+// deg to rad
 function toRadians(deg) {
   return deg * (Math.PI / 180);
 }
 
+// get the weather code with most votes 
 export function getDominantWeatherCodeFromReports(reports) {
   const weatherCodeCounterMap = reports.reduce((acc, report) => {
     const code = report.weather.code;
@@ -38,6 +42,7 @@ export function getDominantWeatherCodeFromReports(reports) {
   return weatherCodeCounterSortedList;
 }
 
+// get a weather code -> description mapping
 export const weatherCodeToDescription = weatherConditions.reduce((acc, w) => ({
   ...acc,
   [w.code]: w.displayName
