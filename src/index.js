@@ -98,6 +98,7 @@ class App extends React.Component {
       selectedCity: {},
       reportButtonLabel: '',
       locationDetected: false,
+      isDarkTheme: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -105,6 +106,7 @@ class App extends React.Component {
     this.reportWeather = this.reportWeather.bind(this);
     this.handleCitySelection = this.handleCitySelection.bind(this);
     this.handleLocationButton = this.handleLocationButton.bind(this);
+    this.handleThemeToggle = this.handleThemeToggle.bind(this);
   }
 
   handleChange(event, value) {
@@ -263,6 +265,10 @@ class App extends React.Component {
     }
   }
 
+  handleThemeToggle () {
+    this.setState({ isDarkTheme: !this.state.isDarkTheme });
+  }
+
   render() {
     const { classes } = this.props;
     const { tabValue } = this.state;
@@ -275,7 +281,10 @@ class App extends React.Component {
     return (
       <div className={classes.root}>
         <section>
-          <Header />
+          <Header 
+            isDarkTheme={this.state.isDarkTheme}
+            handleThemeToggle={this.handleThemeToggle}
+          />
           <SearchSection
             classes={classes}
             handleCitySelection={this.handleCitySelection}
