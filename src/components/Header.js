@@ -47,7 +47,11 @@ function Header(props) {
   return (
     <div className={classes.root}>
       <Icon classes={classes} />
-      <ThemeButton classes={classes} />
+      <ThemeButton 
+        classes={classes} 
+        isDarkTheme={props.isDarkTheme}
+        handleThemeToggle={props.handleThemeToggle}
+      />
     </div>
   );
 }

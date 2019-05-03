@@ -101,7 +101,7 @@ class App extends React.Component {
       isDarkTheme: false,
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleTabChange = this.handleTabChange.bind(this);
     this.getReports = this.getReports.bind(this);
     this.reportWeather = this.reportWeather.bind(this);
     this.handleCitySelection = this.handleCitySelection.bind(this);
@@ -109,8 +109,11 @@ class App extends React.Component {
     this.handleThemeToggle = this.handleThemeToggle.bind(this);
   }
 
-  handleChange(event, value) {
-    this.setState({ tabValue: value });
+  componentWillMount() {
+    if (localStorage.getItem('dark')) {
+      document.body.classList.add('dark');
+      this.setState({isDarkTheme: true });
+    }
   }
 
   componentDidMount() {
@@ -169,6 +172,10 @@ class App extends React.Component {
         });
       },
     );
+  }
+
+  handleTabChange(event, value) {
+    this.setState({ tabValue: value });
   }
 
   handleCitySelection(city) {
@@ -266,7 +273,17 @@ class App extends React.Component {
   }
 
   handleThemeToggle () {
-    this.setState({ isDarkTheme: !this.state.isDarkTheme });
+    const isDarkActive = document.body.classList.contains('dark');
+    if (isDarkActive) {
+      document.body.classList.remove('dark');
+      localStorage.removeItem('dark');
+    } else {
+      document.body.classList.add('dark');
+      localStorage.setItem('dark', true);
+    }
+
+    // toggle dark mode
+    this.setState({ isDarkTheme: !isDarkActive })
   }
 
   render() {
@@ -308,7 +325,7 @@ class App extends React.Component {
           <BottomNavigation
             className={classes.bottomNav}
             value={tabValue}
-            onChange={this.handleChange}
+            onChange={this.handleTabChange}
             showLabels
           >
             <BottomNavigationAction
