@@ -1,3 +1,14 @@
 body {
-  background-color: rgba(0, 67, 255, 0.02);
+  background-color: var(--bg);
+  color: var(--text-color);
+}
+
+.dark {
+  --bg: #061f2f;
+  --text-color: white;
+}
+
+:root {
+  --bg: white;
+  --text-color: black;
 }
