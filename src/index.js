@@ -55,8 +55,8 @@ const styles = {
     color: 'grey',
     '&:hover': {
       cursor: 'pointer',
-      fontSize: '34px'
-    }
+      fontSize: '34px',
+    },
   },
   flexColumn: {
     display: 'flex',
@@ -71,8 +71,16 @@ const styles = {
     marginBottom: '30px',
   },
   bottomNav: {
-    background: 'transparent',
+    display: 'flex', 
+    justifyContent: 'center',
+    listStyleType: 'none',
+    margin: 0,
+    padding: 0,
   },
+  li: {
+    float: 'left', 
+    padding: '0 20px'
+  }
 };
 
 class App extends React.Component {
@@ -174,7 +182,7 @@ class App extends React.Component {
     );
   }
 
-  handleTabChange(event, value) {
+  handleTabChange(value) {
     this.setState({ tabValue: value });
   }
 
@@ -322,24 +330,30 @@ class App extends React.Component {
             buttonLabel={this.state.reportButtonLabel}
             isLocationAvailable={this.state.locationDetected}
           />
-          <BottomNavigation
-            className={classes.bottomNav}
-            value={tabValue}
-            onChange={this.handleTabChange}
-            showLabels
-          >
-            <BottomNavigationAction
-              className={classes.navigationButton}
-              label="Forecast"
-              icon={<CloudIcon />}
-            />
-            <BottomNavigationAction
-              className={classes.navigationButton}
-              label="Reports"
-              icon={<UsersIcon />}
-              onClick={this.getReports}
-            />
-          </BottomNavigation>
+          <div>
+            <ul className={classes.bottomNav}>
+              <li className={classes.li}>
+                <a
+                  href="" 
+                  onClick={(e) => { 
+                    e.preventDefault();
+                    this.handleTabChange(0);
+                  }}
+                > Forecast</a>
+              </li>
+              <li className={classes.li}> | </li>
+              <li className={classes.li}>
+                <a 
+                  href="" 
+                  onClick={(e) => { 
+                    e.preventDefault();
+                    this.handleTabChange(1);
+                    this.getReports();
+                  }}
+                > Reports </a>
+              </li>
+            </ul>
+          </div>
         </section>
       </div>
     );
