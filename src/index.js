@@ -20,6 +20,8 @@ import GpsFixed from '@material-ui/icons/GpsFixed';
 import './style.css';
 import { withStyles } from '@material-ui/core';
 
+export const ThemeContext = React.createContext(true);
+
 const styles = {
   root: {
     height: '100%',
@@ -71,16 +73,16 @@ const styles = {
     marginBottom: '30px',
   },
   bottomNav: {
-    display: 'flex', 
+    display: 'flex',
     justifyContent: 'center',
     listStyleType: 'none',
     margin: 0,
     padding: 0,
   },
   li: {
-    float: 'left', 
-    padding: '0 20px'
-  }
+    float: 'left',
+    padding: '0 20px',
+  },
 };
 
 class App extends React.Component {
@@ -120,7 +122,7 @@ class App extends React.Component {
   componentWillMount() {
     if (localStorage.getItem('dark')) {
       document.body.classList.add('dark');
-      this.setState({isDarkTheme: true });
+      this.setState({ isDarkTheme: true });
     }
   }
 
@@ -280,7 +282,7 @@ class App extends React.Component {
     }
   }
 
-  handleThemeToggle () {
+  handleThemeToggle() {
     const isDarkActive = document.body.classList.contains('dark');
     if (isDarkActive) {
       document.body.classList.remove('dark');
@@ -291,7 +293,7 @@ class App extends React.Component {
     }
 
     // toggle dark mode
-    this.setState({ isDarkTheme: !isDarkActive })
+    this.setState({ isDarkTheme: !isDarkActive });
   }
 
   render() {
@@ -305,56 +307,64 @@ class App extends React.Component {
 
     return (
       <div className={classes.root}>
-        <section>
-          <Header 
-            isDarkTheme={this.state.isDarkTheme}
-            handleThemeToggle={this.handleThemeToggle}
-          />
-          <SearchSection
-            classes={classes}
-            handleCitySelection={this.handleCitySelection}
-            onCurrentLocationClick={this.handleLocationButton}
-          />
-          <WeatherContent 
-            classes={classes}
-            data={this.state} 
-            isLoadingDefaultWeather={isLoadingDefaultWeather}
-            isLoadingReports={isLoadingReports}
-            tabValue={tabValue}
-          />
-        </section>
-        <section className={classes.flexColumn}>
-          <ReportDialog
-            className={classes.reportDialog}
-            reportWeather={this.reportWeather}
-            buttonLabel={this.state.reportButtonLabel}
-            isLocationAvailable={this.state.locationDetected}
-          />
-          <div>
-            <ul className={classes.bottomNav}>
-              <li className={classes.li}>
-                <a
-                  href="" 
-                  onClick={(e) => { 
-                    e.preventDefault();
-                    this.handleTabChange(0);
-                  }}
-                > Forecast</a>
-              </li>
-              <li className={classes.li}> | </li>
-              <li className={classes.li}>
-                <a 
-                  href="" 
-                  onClick={(e) => { 
-                    e.preventDefault();
-                    this.handleTabChange(1);
-                    this.getReports();
-                  }}
-                > Reports </a>
-              </li>
-            </ul>
-          </div>
-        </section>
+        <ThemeContext.Provider value={this.state.isDarkTheme}>
+          <section>
+            <Header
+              isDarkTheme={this.state.isDarkTheme}
+              handleThemeToggle={this.handleThemeToggle}
+            />
+            <SearchSection
+              classes={classes}
+              handleCitySelection={this.handleCitySelection}
+              onCurrentLocationClick={this.handleLocationButton}
+            />
+            <WeatherContent
+              classes={classes}
+              data={this.state}
+              isLoadingDefaultWeather={isLoadingDefaultWeather}
+              isLoadingReports={isLoadingReports}
+              tabValue={tabValue}
+            />
+          </section>
+          <section className={classes.flexColumn}>
+            <ReportDialog
+              className={classes.reportDialog}
+              reportWeather={this.reportWeather}
+              buttonLabel={this.state.reportButtonLabel}
+              isLocationAvailable={this.state.locationDetected}
+            />
+            <div>
+              <ul className={classes.bottomNav}>
+                <li className={classes.li}>
+                  <a
+                    href=""
+                    onClick={(e) => {
+                      e.preventDefault();
+                      this.handleTabChange(0);
+                    }}
+                  >
+                    {' '}
+                    Forecast
+                  </a>
+                </li>
+                <li className={classes.li}> | </li>
+                <li className={classes.li}>
+                  <a
+                    href=""
+                    onClick={(e) => {
+                      e.preventDefault();
+                      this.handleTabChange(1);
+                      this.getReports();
+                    }}
+                  >
+                    {' '}
+                    Reports{' '}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </ThemeContext.Provider>
       </div>
     );
   }

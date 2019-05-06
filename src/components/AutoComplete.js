@@ -6,6 +6,7 @@ import * as ApiService from '../services/api';
 
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
+import { ThemeContext } from '../index';
 export default class AutoComplete extends React.Component {
   constructor(props) {
     super(props);
@@ -57,25 +58,35 @@ export default class AutoComplete extends React.Component {
   render() {
     return (
       <Fragment>
-        <AsyncTypeahead
-          {...this.state}
-          useCache
-          id="async-typeahead"
-          className={this.props.className}
-          labelKey="name"
-          minLength={2}
-          maxResults={15}
-          onSearch={this.handleSearch}
-          onChange={this.handleSelection}
-          delay={300}
-          inputProps={{
-            spellCheck: false,
-          }}
-          placeholder="Search for a city.."
-          renderMenuItemChildren={(option) => (
-            <span key={option.id}>{`${option.name} (${option.country})`}</span>
-          )}
-        />
+        <ThemeContext.Consumer>
+          {(theme) => 
+            <AsyncTypeahead
+              {...this.state}
+              useCache
+              id="async-typeahead"
+              className={'darki'}
+              labelKey="name"
+              minLength={2}
+              maxResults={15}
+              onSearch={this.handleSearch}
+              onChange={this.handleSelection}
+              delay={300}
+              inputProps={{
+                spellCheck: false,
+                style: {
+                  backgroundColor: theme && '#061f2f',
+                  color: theme && 'white',
+                },
+              }}
+              placeholder="Search for a city.."
+              renderMenuItemChildren={(option) => (
+                <span key={option.id}>{`${option.name} (${
+                  option.country
+                })`}</span>
+              )}
+            />
+          }
+        </ThemeContext.Consumer>
       </Fragment>
     );
   }
