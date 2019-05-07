@@ -12,6 +12,8 @@ import { weatherConditions } from '../constants';
 
 import { withStyles } from '@material-ui/core';
 
+import { ThemeContext } from '../index';
+
 const styles = {
   gridContainer: {
     display: 'grid',
@@ -22,17 +24,17 @@ const styles = {
     margin: 'auto',
     '@media (min-width: 768px)': {
       margin: '45px auto',
-    }
+    },
   },
   button: {
     color: '#3782a9',
   },
   weatherIcon: {
     '&:hover': {
-      cursor: 'pointer'
-    }
-  }
-}
+      cursor: 'pointer',
+    },
+  },
+};
 
 class ReportDialog extends React.Component {
   constructor(props) {
@@ -64,29 +66,37 @@ class ReportDialog extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.buttonContainer}>
-        <Tooltip
-          placement="top-end"
-          style={{ fontSize: '3em'}}
-          title={
-            this.props.isLocationAvailable
-              ? 'Report the weather you see'
-              : 'Enable location in order to make a report'
-          }
-        >
-          <span>
-            <Button
-              className={classes.button}
-              variant="outlined"
-              disabled={
-                this.props.buttonLabel !== '' || !this.props.isLocationAvailable
+        <ThemeContext.Consumer>
+          {(theme) => (
+            <Tooltip
+              placement="top-end"
+              style={{ fontSize: '3em' }}
+              title={
+                this.props.isLocationAvailable
+                  ? 'Report the weather you see'
+                  : 'Enable location in order to make a report'
               }
-              onClick={this.handleClickOpen}
             >
-              {this.props.buttonLabel || 'Report weather'}
-            </Button>
-          </span>
-        </Tooltip>
-
+              <span>
+                <Button
+                  className={classes.button}
+                  variant="outlined"
+                  style={{
+                    color: theme ? 'white' : 'black',
+                    borderColor: theme ? 'white' : 'black'
+                  }}
+                  disabled={
+                    this.props.buttonLabel !== '' ||
+                    !this.props.isLocationAvailable
+                  }
+                  onClick={this.handleClickOpen}
+                >
+                  {this.props.buttonLabel || 'Report weather'}
+                </Button>
+              </span>
+            </Tooltip>
+          )}
+        </ThemeContext.Consumer>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -96,7 +106,7 @@ class ReportDialog extends React.Component {
           <DialogContent>
             <div className={classes.gridContainer}>
               {weatherConditions
-                .filter(w => w.isReportable)
+                .filter((w) => w.isReportable)
                 .map((w) => (
                   <img
                     key={w.code}
@@ -104,7 +114,7 @@ class ReportDialog extends React.Component {
                     src={require(`../assets/images/weather/${w.icon.day}.svg`)}
                     onClick={this.handleWeatherIconClick.bind(null, w.code)}
                   />
-              ))}
+                ))}
             </div>
           </DialogContent>
           <DialogActions>
@@ -117,7 +127,6 @@ class ReportDialog extends React.Component {
     );
   }
 }
-
 
 ReportDialog.propTypes = {
   reportWeather: PropTypes.func,

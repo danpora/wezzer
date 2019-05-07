@@ -304,6 +304,7 @@ class App extends React.Component {
       this.state.defaultWeather.statusType === 'REQUEST';
 
     const isLoadingReports = this.state.reports.statusType === 'REQUEST';
+    const themeStyle = { color: this.state.isDarkTheme ? 'white' : 'black'};
 
     return (
       <div className={classes.root}>
@@ -338,26 +339,26 @@ class App extends React.Component {
                 <li className={classes.li}>
                   <a
                     href=""
+                    style={themeStyle}
                     onClick={(e) => {
                       e.preventDefault();
                       this.handleTabChange(0);
                     }}
                   >
-                    {' '}
                     Forecast
                   </a>
                 </li>
-                <li className={classes.li}> | </li>
+                <li className={classes.li}>{' | '} </li>
                 <li className={classes.li}>
                   <a
                     href=""
+                    style={themeStyle}
                     onClick={(e) => {
                       e.preventDefault();
                       this.handleTabChange(1);
                       this.getReports();
                     }}
                   >
-                    {' '}
                     Reports{' '}
                   </a>
                 </li>
