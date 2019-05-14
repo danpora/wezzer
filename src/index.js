@@ -10,11 +10,7 @@ import Loading from './components/Loading';
 import ReportDialog from './components/ReportDialog';
 import AutoComplete from './components/AutoComplete';
 
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-
-import CloudIcon from '@material-ui/icons/Cloud';
-import UsersIcon from '@material-ui/icons/SupervisedUserCircle';
+import Tooltip from '@material-ui/core/Tooltip';
 import GpsFixed from '@material-ui/icons/GpsFixed';
 
 import './style.css';
@@ -55,9 +51,12 @@ const styles = {
     float: 'right',
     margin: '8px 0',
     color: 'grey',
+    fontSize: '2em',
+    transition: 'font-size 2s',
     '&:hover': {
       cursor: 'pointer',
-      fontSize: '34px',
+      fontSize: '2.5em',
+      color: '#6abfea'
     },
   },
   flexColumn: {
@@ -304,7 +303,7 @@ class App extends React.Component {
       this.state.defaultWeather.statusType === 'REQUEST';
 
     const isLoadingReports = this.state.reports.statusType === 'REQUEST';
-    const themeStyle = { color: this.state.isDarkTheme ? 'white' : 'black'};
+    const themeStyle = { color: this.state.isDarkTheme ? 'white' : 'black' };
 
     return (
       <div className={classes.root}>
@@ -396,10 +395,15 @@ function SearchSection(props) {
   return (
     <div className={props.classes.searchBar}>
       <AutoComplete handleSelection={props.handleCitySelection} />
-      <GpsFixed
-        className={props.classes.locationButton}
-        onClick={props.onCurrentLocationClick}
-      />
+      <Tooltip
+        placement="left"
+        title={'Show weather in your location'}
+      >
+        <GpsFixed
+          className={props.classes.locationButton}
+          onClick={props.onCurrentLocationClick}
+        />
+      </Tooltip>
     </div>
   );
 }
