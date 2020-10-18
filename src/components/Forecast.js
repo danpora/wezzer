@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import WeatherIcon from './WeatherIcon';
 
 import { withStyles } from '@material-ui/core';
-
-import WeatherIcon from './WeatherIcon';
 
 const styles = {
   centerText: {
