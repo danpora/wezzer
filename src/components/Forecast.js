@@ -1,8 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import WeatherIcon from './WeatherIcon';
+import React from 'react'
+import PropTypes from 'prop-types'
+import WeatherIcon from './WeatherIcon'
+import cn from 'classnames'
 
-import { withStyles } from '@material-ui/core';
+import {withStyles} from '@material-ui/core'
 
 const styles = {
   centerText: {
@@ -21,17 +22,21 @@ const styles = {
 }
 
 export default function Forecast(props) {
-  const isDataNotAvailable = Object.keys(props.data).length === 0;
+  const isDataAvailable = Object.keys(props.data).length !== 0
   
-  return isDataNotAvailable ? (
-    <NoLocationAvailable className={props.className} />
-  ) : (
+  return isDataAvailable ? (
     <WeatherViewerStyled {...props} />
-  );
+  ) : (
+    <NoLocationAvailable className={props.className} />
+  )
 }
 
 function NoLocationAvailable(props) {
-  return <div className={props.className}>To begin, please select a location first..</div>;
+  return (
+    <div className={cn(props.className, 'center')}>
+      To begin, please select a location first..
+    </div>
+  )
 }
 
 function WeatherViewer(props) {

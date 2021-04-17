@@ -33,6 +33,7 @@ const styles = {
   },
   content: {
     padding: '15px 0',
+    width: '100%',
     height: '100%',
     textAlign: 'center',
     '@media (min-width: 768px)': {
@@ -52,11 +53,9 @@ const styles = {
     margin: '8px 0',
     color: 'grey',
     fontSize: '2em',
-    transition: 'font-size 2s',
     '&:hover': {
       cursor: 'pointer',
-      fontSize: '2.5em',
-      color: '#6abfea'
+      color: '#6abfea',
     },
   },
   flexColumn: {
@@ -180,7 +179,8 @@ class App extends React.Component {
           },
         });
       },
-    );
+      {timeout: 4000},
+    )
   }
 
   handleTabChange(value) {

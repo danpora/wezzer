@@ -24,16 +24,16 @@ const styles = {
 }
 
 export default function Reports(props) {
-  const { className } = props;
+  const {className} = props
 
   const sortedReportsCounts = Utils.getDominantWeatherCodeFromReports(
     props.data,
-  );
-  const isNoReports = sortedReportsCounts.length === 0;
+  )
+  const isReportsEmpty = sortedReportsCounts.length === 0
 
   return (
     <div className={className}>
-      {isNoReports ? (
+      {isReportsEmpty ? (
         'No reports Available'
       ) : (
         <ReportsViewerStyled reportsCounts={sortedReportsCounts} />
